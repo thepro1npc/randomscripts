@@ -1,3 +1,10 @@
+[[-
+
+-- ALL CREDIT GOES TO realgaming787
+
+-]]
+
+
 local groupId = 10261023
 local rankNames = {
     "Guest", "Customer", "Contributor", "Allied Representative", "Trainee",
