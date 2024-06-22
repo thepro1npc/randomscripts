@@ -109,6 +109,11 @@ SectionTeleporters:NewButton("Raceway", "ButtonInfo", function()
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
+SectionTeleporters:NewButton("Spawn", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-106, 4, 99)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
 local TabTrainingTeleporters = Window:NewTab("Training Teleporters")
 local SectionTrainingTeleporters = TabTrainingTeleporters:NewSection("Training Teleporters")
 
