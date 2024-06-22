@@ -6,40 +6,42 @@ local rankNames = {"Junior Director",
     "Chief Administrative Officer", "Developer", "Vice Chairman", "Chairman"
 }
 
-local function sendNotification(player, title, action)
+local function sendNotification(rank)
     game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = title,
-        Text = player.Name .. " has " .. action .. " with the rank of " .. player:GetRoleInGroup(groupId),
+        Title = "WARNING",
+        Text = "A " .. rank .. " has joined the game. WATCH OUT!",
         Duration = 5
     })
 end
 
-local function handlePlayerEvent(player, title, action)
+local function handlePlayerEvent(player)
     local success, rank = pcall(function()
-        return player:GetRankInGroup(groupId)
+        return player:GetRoleInGroup(groupId)
     end)
 
-    for _, rankName in ipairs(rankNames) do
-        if success and rankName == player:GetRoleInGroup(groupId) then
-            sendNotification(player, title, action)
-            break
+    if success then
+        for _, rankName in ipairs(rankNames) do
+            if rankName == rank then
+                sendNotification(rankName)
+                break
+            end
         end
     end
 end
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Window = Library.CreateLib("Washiez fling all", "DarkTheme")
-local Tab = Window:NewTab("npc's GUI")
-local Section = Tab:NewSection("npc's GUI")
+local Tab = Window:NewTab("hi")
+local Section = Tab:NewSection("hi")
 
-Section:NewToggle("Toggle", "ToglInfo", function(state)
+Section:NewToggle("Togl", "ToglInfo", function(state)
     if state then
         _G.on = true
         while _G.on do
             task.wait(0.1)
-            for i, v in pairs(workspace.SpawnedCars:GetChildren()) do
+            for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
-                wait(0.1)
+                task.wait(0.1)
             end
         end
     else
@@ -52,9 +54,9 @@ Section:NewButton("Fling script (sexy)", "ButtonInfo", function()
 end)
 
 game.Players.PlayerAdded:Connect(function(player)
-    handlePlayerEvent(player, "Player joined", "joined")
+    handlePlayerEvent(player)
 end)
 
 game.Players.PlayerRemoving:Connect(function(player)
-    handlePlayerEvent(player, "Player left", "left")
+    handlePlayerEvent(player)
 end)
