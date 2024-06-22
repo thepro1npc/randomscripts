@@ -129,3 +129,11 @@ SectionTrainingTeleporters:NewButton("Group F", "ButtonInfo", function()
     local targetPosition = Vector3.new(-656, 4, -419)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
+
+-- Collapse button to hide/show the UI
+local isCollapsed = false
+local CollapseButton = Window:NewButton("-", "ButtonInfo", function()
+    isCollapsed = not isCollapsed
+    Window:SetVisible(not isCollapsed)
+end)
+CollapseButton.TextSize = 10  -- Adjust the size of the collapse button text
