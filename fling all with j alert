@@ -14,37 +14,23 @@ local function sendNotification(title, message)
     })
 end
 
-local function handlePlayerEvent(player)
-    local success, rank = pcall(function()
-        return player:GetRoleInGroup(groupId)
-    end)
-
-    if success then
-        for _, rankName in ipairs(rankNames) do
-            if rankName == rank then
-                sendNotification("HR SCAN", "A " .. rankName .. " has joined the game. WATCH OUT!")
-                break
+local function countHRPlayers()
+    local hrCount = 0
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        local success, rank = pcall(function()
+            return player:GetRoleInGroup(groupId)
+        end)
+        if success then
+            for _, rankName in ipairs(rankNames) do
+                if rankName == rank then
+                    hrCount = hrCount + 1
+                    break
+                end
             end
         end
     end
+    return hrCount
 end
-
-game.Players.PlayerAdded:Connect(handlePlayerEvent)
-
-game.Players.PlayerRemoving:Connect(function(player)
-    local success, rank = pcall(function()
-        return player:GetRoleInGroup(groupId)
-    end)
-
-    if success then
-        for _, rankName in ipairs(rankNames) do
-            if rankName == rank then
-                sendNotification("HR SCAN", "A " .. rankName .. " has left the game.")
-                break
-            end
-        end
-    end
-end)
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Window = Library.CreateLib("Made by npc", "DarkTheme")
