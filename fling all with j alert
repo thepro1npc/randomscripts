@@ -67,6 +67,36 @@ SectionTeleporters:NewButton("Cafe", "ButtonInfo", function()
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
+SectionTeleporters:NewButton("Gas Station", "ButtonInfo", function()
+    local targetPosition = Vector3.new(494, 3, -181)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Headquarters", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-46, 4, -201)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Secret Room", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-130, -15, -201)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Prison Outdoor", "ButtonInfo", function()
+    local targetPosition = Vector3.new(257, 3, -504)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Prison Indoor", "ButtonInfo", function()
+    local targetPosition = Vector3.new(267, 4, -570)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Raceway", "ButtonInfo", function()
+    local targetPosition = Vector3.new(449, 27, 470)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
 game.Players.PlayerAdded:Connect(function(player)
     handlePlayerEvent(player)
 end)
