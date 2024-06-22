@@ -6,48 +6,16 @@ local rankNames = {"Junior Director",
     "Chief Administrative Officer", "Developer", "Vice Chairman", "Chairman"
 }
 
-local function createNotificationGui(message)
-    local screenGui = Instance.new("ScreenGui")
-    screenGui.Name = "NotificationGui"
-    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-    local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(0.3, 0, 0.2, 0)
-    frame.Position = UDim2.new(0.35, 0, 0.4, 0)
-    frame.BackgroundColor3 = Color3.new(0, 0, 0)
-    frame.Parent = screenGui
-
-    local textLabel = Instance.new("TextLabel")
-    textLabel.Size = UDim2.new(1, 0, 0.7, 0)
-    textLabel.Position = UDim2.new(0, 0, 0, 0)
-    textLabel.BackgroundColor3 = Color3.new(1, 0, 0)
-    textLabel.TextColor3 = Color3.new(1, 1, 1)
-    textLabel.TextScaled = true
-    textLabel.Text = message
-    textLabel.Parent = frame
-
-    local button = Instance.new("TextButton")
-    button.Size = UDim2.new(0.4, 0, 0.2, 0)
-    button.Position = UDim2.new(0.3, 0, 0.75, 0)
-    button.BackgroundColor3 = Color3.new(0, 1, 0)
-    button.TextColor3 = Color3.new(1, 1, 1)
-    button.TextScaled = true
-    button.Text = "OK"
-    button.Parent = frame
-
-    button.MouseButton1Click:Connect(function()
-        screenGui:Destroy()
-    end)
-
-    delay(8, function()
-        if screenGui and screenGui.Parent then
-            screenGui:Destroy()
-        end
-    end)
+local function sendNotification(message)
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Notification",
+        Text = message,
+        Duration = 8
+    })
 end
 
 local function handlePlayerEvent(player)
-    createNotificationGui(player.Name .. " has joined the game.")
+    sendNotification(player.Name .. " has joined the game.")
 
     local success, rank = pcall(function()
         return player:GetRoleInGroup(groupId)
@@ -56,7 +24,7 @@ local function handlePlayerEvent(player)
     if success then
         for _, rankName in ipairs(rankNames) do
             if rankName == rank then
-                createNotificationGui("WARNING: A " .. rankName .. " has joined the game. WATCH OUT!")
+                sendNotification("WARNING: A " .. rankName .. " has joined the game. WATCH OUT!")
                 break
             end
         end
@@ -91,6 +59,10 @@ Section:NewToggle("Toggle Fling", "ToglInfo", function(state)
 end)
 
 Section:NewButton("Fling script", "ButtonInfo", function()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
+end)
+
+Section:NewButton("Infinite Yield", "Load Infinite Yield script", function()
     loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
 end)
 
