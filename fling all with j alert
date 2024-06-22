@@ -42,7 +42,7 @@ local function toggleFling()
     end
 end
 
-Section:NewButton("Toggle Fling", "ToglInfo", function()
+Section:NewButton("Toggle Fling", "ButtonInfo", function()
     toggleFling()
 end)
 
