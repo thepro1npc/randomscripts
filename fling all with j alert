@@ -6,12 +6,44 @@ local rankNames = {"Junior Director",
     "Chief Administrative Officer", "Developer", "Vice Chairman", "Chairman"
 }
 
-local function sendNotification(rank)
-    game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = "WARNING",
-        Text = "A " .. rank .. " has joined the game. WATCH OUT!",
-        Duration = 5
-    })
+local function createNotificationGui(rank)
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "NotificationGui"
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0.3, 0, 0.2, 0)
+    frame.Position = UDim2.new(0.35, 0, 0.4, 0)
+    frame.BackgroundColor3 = Color3.new(0, 0, 0)
+    frame.Parent = screenGui
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(1, 0, 0.7, 0)
+    textLabel.Position = UDim2.new(0, 0, 0, 0)
+    textLabel.BackgroundColor3 = Color3.new(1, 0, 0)
+    textLabel.TextColor3 = Color3.new(1, 1, 1)
+    textLabel.TextScaled = true
+    textLabel.Text = "WARNING: A " .. rank .. " has joined the game. WATCH OUT!"
+    textLabel.Parent = frame
+
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(0.4, 0, 0.2, 0)
+    button.Position = UDim2.new(0.3, 0, 0.75, 0)
+    button.BackgroundColor3 = Color3.new(0, 1, 0)
+    button.TextColor3 = Color3.new(1, 1, 1)
+    button.TextScaled = true
+    button.Text = "OK"
+    button.Parent = frame
+
+    button.MouseButton1Click:Connect(function()
+        screenGui:Destroy()
+    end)
+
+    delay(8, function()
+        if screenGui and screenGui.Parent then
+            screenGui:Destroy()
+        end
+    end)
 end
 
 local function handlePlayerEvent(player)
@@ -22,7 +54,7 @@ local function handlePlayerEvent(player)
     if success then
         for _, rankName in ipairs(rankNames) do
             if rankName == rank then
-                sendNotification(rankName)
+                createNotificationGui(rankName)
                 break
             end
         end
@@ -31,25 +63,32 @@ end
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Window = Library.CreateLib("Washiez fling all", "DarkTheme")
-local Tab = Window:NewTab("hi")
-local Section = Tab:NewSection("hi")
+local Tab = Window:NewTab("Main Page")
+local Section = Tab:NewSection("Main Page")
 
-Section:NewToggle("Togl", "ToglInfo", function(state)
-    if state then
-        _G.on = true
-        while _G.on do
+local function toggleFling(state)
+    _G.on = state
+    while _G.on do
+        task.wait(0.1)
+        for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
+            if not _G.on then break end
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
             task.wait(0.1)
-            for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
-                task.wait(0.1)
-            end
         end
+    end
+end
+
+Section:NewToggle("Toggle Fling", "ToglInfo", function(state)
+    if state then
+        spawn(function()
+            toggleFling(true)
+        end)
     else
         _G.on = false
     end
 end)
 
-Section:NewButton("Fling script (sexy)", "ButtonInfo", function()
+Section:NewButton("Fling script", "ButtonInfo", function()
     loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
 end)
 
