@@ -54,11 +54,16 @@ Section:NewButton("Infinite Yield", "ButtonInfo", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 end)
 
-local SectionTeleporters = Tab:NewSection("Teleporters")
+local TabTeleporters = Window:NewTab("Teleporters")
+local SectionTeleporters = TabTeleporters:NewSection("Teleporters")
 
 SectionTeleporters:NewButton("Middle Area", "ButtonInfo", function()
     local targetPosition = Vector3.new(351, 4, 100)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Fling All", "ButtonInfo", function()
+    flingAll()
 end)
 
 game.Players.PlayerAdded:Connect(function(player)
