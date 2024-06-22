@@ -6,7 +6,7 @@ local rankNames = {"Junior Director",
     "Chief Administrative Officer", "Developer", "Vice Chairman", "Chairman"
 }
 
-local function createNotificationGui(rank)
+local function createNotificationGui(message)
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = "NotificationGui"
     screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -23,7 +23,7 @@ local function createNotificationGui(rank)
     textLabel.BackgroundColor3 = Color3.new(1, 0, 0)
     textLabel.TextColor3 = Color3.new(1, 1, 1)
     textLabel.TextScaled = true
-    textLabel.Text = "WARNING: A " .. rank .. " has joined the game. WATCH OUT!"
+    textLabel.Text = message
     textLabel.Parent = frame
 
     local button = Instance.new("TextButton")
@@ -47,6 +47,8 @@ local function createNotificationGui(rank)
 end
 
 local function handlePlayerEvent(player)
+    createNotificationGui(player.Name .. " has joined the game.")
+
     local success, rank = pcall(function()
         return player:GetRoleInGroup(groupId)
     end)
@@ -54,7 +56,7 @@ local function handlePlayerEvent(player)
     if success then
         for _, rankName in ipairs(rankNames) do
             if rankName == rank then
-                createNotificationGui(rankName)
+                createNotificationGui("WARNING: A " .. rankName .. " has joined the game. WATCH OUT!")
                 break
             end
         end
