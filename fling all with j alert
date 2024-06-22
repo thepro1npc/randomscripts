@@ -35,18 +35,18 @@ local Window = Library.CreateLib("Washiez fling all", "DarkTheme")
 local Tab = Window:NewTab("Main Page")
 local Section = Tab:NewSection("Main Page")
 
-local function toggleFling()
+local function flingAll()
     for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
         task.wait(0.1)
     end
 end
 
-Section:NewButton("Toggle Fling", "ButtonInfo", function()
-    toggleFling()
+Section:NewButton("Fling All (in vehicle)", "ButtonInfo", function()
+    flingAll()
 end)
 
-Section:NewButton("Fling script", "ButtonInfo", function()
+Section:NewButton("Fling Script", "ButtonInfo", function()
     loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
 end)
 
