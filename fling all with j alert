@@ -1,33 +1,35 @@
 local groupId = 10261023
-local rankNames = {"Junior Director",
-    "Senior Director", "Head Director", "Corporate Intern", "Junior Corporate",
-    "Senior Corporate", "Head Corporate", "Chief Human Resources Officer",
-    "Chief Public Relations Officer", "Chief Operating Officer",
-    "Chief Administrative Officer", "Developer", "Vice Chairman", "Chairman"
+local rankNames = {
+    "Junior Director", "Senior Director", "Head Director", "Corporate Intern", 
+    "Junior Corporate", "Senior Corporate", "Head Corporate", "Chief Human Resources Officer",
+    "Chief Public Relations Officer", "Chief Operating Officer", "Chief Administrative Officer",
+    "Developer", "Vice Chairman", "Chairman"
 }
 
-local function sendNotification(message, playerName)
+local function sendNotification(title, message)
     game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = "WARNING",
-        Text = message .. " " .. playerName,
+        Title = title,
+        Text = message,
         Duration = 8
     })
 end
 
-local function handlePlayerEvent(player)
-    local playerName = player.Name
-    local success, rank = pcall(function()
-        return player:GetRoleInGroup(groupId)
-    end)
-
-    if success then
-        for _, rankName in ipairs(rankNames) do
-            if rankName == rank then
-                sendNotification("A " .. rankName .. " has joined the game. WATCH OUT!", playerName)
-                break
+local function countHRPlayers()
+    local hrCount = 0
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        local success, rank = pcall(function()
+            return player:GetRoleInGroup(groupId)
+        end)
+        if success then
+            for _, rankName in ipairs(rankNames) do
+                if rankName == rank then
+                    hrCount = hrCount + 1
+                    break
+                end
             end
         end
     end
+    return hrCount
 end
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
@@ -54,16 +56,21 @@ Section:NewButton("Infinite Yield", "ButtonInfo", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 end)
 
+-- HR Scan button
+Section:NewButton("HR Scan", "ButtonInfo", function()
+    local hrPlayers = countHRPlayers()
+    if hrPlayers > 0 then
+        sendNotification("HR SCAN", "There are " .. hrPlayers .. " HR's in-game.")
+    else
+        sendNotification("HR SCAN", "No HR's found in-game.")
+    end
+end)
+
 local TabTeleporters = Window:NewTab("Teleporters")
 local SectionTeleporters = TabTeleporters:NewSection("Teleporters")
 
 SectionTeleporters:NewButton("Middle Area", "ButtonInfo", function()
     local targetPosition = Vector3.new(351, 4, 100)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
-
-SectionTeleporters:NewButton("Staff Spawn", "ButtonInfo", function()
-    local targetPosition = Vector3.new(294, 4, -194)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
@@ -134,11 +141,3 @@ SectionTrainingTeleporters:NewButton("Group F", "ButtonInfo", function()
     local targetPosition = Vector3.new(-656, 4, -419)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
-
--- Collapse button to hide/show the UI
-local isCollapsed = false
-local CollapseButton = Window:NewButton("-", "ButtonInfo", function()
-    isCollapsed = not isCollapsed
-    Window:SetVisible(not isCollapsed)
-end)
-CollapseButton.TextSize = 10  -- Adjust the size of the collapse button text
