@@ -35,26 +35,15 @@ local Window = Library.CreateLib("Washiez fling all", "DarkTheme")
 local Tab = Window:NewTab("Main Page")
 local Section = Tab:NewSection("Main Page")
 
-local function toggleFling(state)
-    _G.on = state
-    while _G.on do
-        for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
-            if not _G.on then break end
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
-            task.wait(0.1)
-        end
-        task.wait(0.1)  -- Add a small delay before looping again
+local function toggleFling()
+    for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
+        task.wait(0.1)
     end
 end
 
-Section:NewToggle("Toggle Fling", "ToglInfo", function(state)
-    if state then
-        spawn(function()
-            toggleFling(true)
-        end)
-    else
-        _G.on = false
-    end
+Section:NewButton("Toggle Fling", "ToglInfo", function()
+    toggleFling()
 end)
 
 Section:NewButton("Fling script", "ButtonInfo", function()
@@ -63,6 +52,17 @@ end)
 
 Section:NewButton("Infinite Yield", "ButtonInfo", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+
+local TeleportersTab = Window:NewTab("Teleporters")
+local TeleportersSection = TeleportersTab:NewSection("Teleporters")
+
+TeleportersSection:NewButton("Teleport to Spawn", "ButtonInfo", function()
+    -- Add your code to teleport to spawn here
+end)
+
+TeleportersSection:NewButton("Teleport to Home", "ButtonInfo", function()
+    -- Add your code to teleport to home here
 end)
 
 game.Players.PlayerAdded:Connect(function(player)
