@@ -54,15 +54,11 @@ Section:NewButton("Infinite Yield", "ButtonInfo", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 end)
 
-local TeleportersTab = Window:NewTab("Teleporters")
-local TeleportersSection = TeleportersTab:NewSection("Teleporters")
+local SectionTeleporters = Tab:NewSection("Teleporters")
 
-TeleportersSection:NewButton("Teleport to Spawn", "ButtonInfo", function()
-    -- Add your code to teleport to spawn here
-end)
-
-TeleportersSection:NewButton("Teleport to Home", "ButtonInfo", function()
-    -- Add your code to teleport to home here
+SectionTeleporters:NewButton("Middle Area", "ButtonInfo", function()
+    local targetPosition = Vector3.new(351, 4, 100)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
 game.Players.PlayerAdded:Connect(function(player)
