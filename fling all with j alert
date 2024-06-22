@@ -6,15 +6,16 @@ local rankNames = {"Junior Director",
     "Chief Administrative Officer", "Developer", "Vice Chairman", "Chairman"
 }
 
-local function sendNotification(message)
+local function sendNotification(message, playerName)
     game:GetService("StarterGui"):SetCore("SendNotification", {
         Title = "WARNING",
-        Text = message,
+        Text = message .. " " .. playerName,
         Duration = 8
     })
 end
 
 local function handlePlayerEvent(player)
+    local playerName = player.Name
     local success, rank = pcall(function()
         return player:GetRoleInGroup(groupId)
     end)
@@ -22,7 +23,7 @@ local function handlePlayerEvent(player)
     if success then
         for _, rankName in ipairs(rankNames) do
             if rankName == rank then
-                sendNotification("A " .. rankName .. " has joined the game. WATCH OUT!")
+                sendNotification("A " .. rankName .. " has joined the game. WATCH OUT!", playerName)
                 break
             end
         end
@@ -37,12 +38,12 @@ local Section = Tab:NewSection("Main Page")
 local function toggleFling(state)
     _G.on = state
     while _G.on do
-        task.wait(0.1)
         for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
             if not _G.on then break end
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
             task.wait(0.1)
         end
+        task.wait(0.1)  -- Add a small delay before looping again
     end
 end
 
