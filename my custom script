@@ -75,7 +75,7 @@ Section:NewButton("HR Scan", "ButtonInfo", function()
     end
 end)
 
--- Chat Spammer toggle button
+-- Chat Spammer toggle button (MOVED TO MAIN PAGE)
 local spamButton = Section:NewToggle("Spam Discord Invite", "ButtonInfo", function(state)
     isSpamming = state
     if isSpamming then
@@ -137,8 +137,7 @@ SectionTeleporters:NewButton("Staff Spawn", "ButtonInfo", function()
 end)
 
 local TabTrainingTeleporters = Window:NewTab("Training Teleporters")
-local SectionTrainingTeleporters
--- Training Teleporters buttons...
+local SectionTrainingTeleporters = TabTrainingTeleporters:NewSection("Training Teleporters")
 
 SectionTrainingTeleporters:NewButton("Group A", "ButtonInfo", function()
     local targetPosition = Vector3.new(-473, 4, -315)
@@ -170,8 +169,8 @@ SectionTrainingTeleporters:NewButton("Group F", "ButtonInfo", function()
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
--- Chat Spammer toggle button
-local spamButton = SectionTrainingTeleporters:NewToggle("Spam Discord Invite", "ButtonInfo", function(state)
+-- Chat Spammer toggle button (MOVED TO MAIN PAGE)
+local spamButton = Section:NewToggle("Spam Discord Invite", "ButtonInfo", function(state)
     isSpamming = state
     if isSpamming then
         spamChat()
