@@ -6,6 +6,8 @@ local rankNames = {
     "Developer", "Vice Chairman", "Chairman"
 }
 
+local isSpamming = false
+
 local function sendNotification(title, message)
     game:GetService("StarterGui"):SetCore("SendNotification", {
         Title = title,
@@ -30,6 +32,13 @@ local function countHRPlayers()
         end
     end
     return hrCount
+end
+
+local function spamChat()
+    while isSpamming do
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
+        wait(1)
+    end
 end
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
@@ -63,6 +72,14 @@ Section:NewButton("HR Scan", "ButtonInfo", function()
         sendNotification("HR SCAN", "There are " .. hrPlayers .. " HR's in-game.")
     else
         sendNotification("HR SCAN", "No HR's found in-game.")
+    end
+end)
+
+-- Chat Spammer toggle button
+local spamButton = Section:NewToggle("Spam Discord Invite", "ButtonInfo", function(state)
+    isSpamming = state
+    if isSpamming then
+        spamChat()
     end
 end)
 
@@ -120,7 +137,8 @@ SectionTeleporters:NewButton("Staff Spawn", "ButtonInfo", function()
 end)
 
 local TabTrainingTeleporters = Window:NewTab("Training Teleporters")
-local SectionTrainingTeleporters = TabTrainingTeleporters:NewSection("Training Teleporters")
+local SectionTrainingTeleporters
+-- Training Teleporters buttons...
 
 SectionTrainingTeleporters:NewButton("Group A", "ButtonInfo", function()
     local targetPosition = Vector3.new(-473, 4, -315)
@@ -151,3 +169,16 @@ SectionTrainingTeleporters:NewButton("Group F", "ButtonInfo", function()
     local targetPosition = Vector3.new(-656, 4, -419)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
+
+-- Chat Spammer toggle button
+local spamButton = SectionTrainingTeleporters:NewToggle("Spam Discord Invite", "ButtonInfo", function(state)
+    isSpamming = state
+    if isSpamming then
+        spamChat()
+    end
+end)
+
+-- Start spamming Discord invite when script runs
+if isSpamming then
+    spamChat()
+end
