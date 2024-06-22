@@ -97,10 +97,35 @@ SectionTeleporters:NewButton("Raceway", "ButtonInfo", function()
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
-game.Players.PlayerAdded:Connect(function(player)
-    handlePlayerEvent(player)
+local TabTrainingTeleporters = Window:NewTab("Training Teleporters")
+local SectionTrainingTeleporters = TabTrainingTeleporters:NewSection("Training Teleporters")
+
+SectionTrainingTeleporters:NewButton("Group A", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-473, 4, -315)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
-game.Players.PlayerRemoving:Connect(function(player)
-    -- Optionally handle player removing event if needed
+SectionTrainingTeleporters:NewButton("Group B", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-565, 4, -313)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTrainingTeleporters:NewButton("Group C", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-657, 4, -314)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTrainingTeleporters:NewButton("Group D", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-473, 4, -418)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTrainingTeleporters:NewButton("Group E", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-564, 4, -420)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTrainingTeleporters:NewButton("Group F", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-656, 4, -419)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
