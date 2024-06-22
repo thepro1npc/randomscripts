@@ -8,15 +8,13 @@ local rankNames = {"Junior Director",
 
 local function sendNotification(message)
     game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = "Notification",
+        Title = "WARNING",
         Text = message,
         Duration = 8
     })
 end
 
 local function handlePlayerEvent(player)
-    sendNotification(player.Name .. " has joined the game.")
-
     local success, rank = pcall(function()
         return player:GetRoleInGroup(groupId)
     end)
@@ -24,7 +22,7 @@ local function handlePlayerEvent(player)
     if success then
         for _, rankName in ipairs(rankNames) do
             if rankName == rank then
-                sendNotification("WARNING: A " .. rankName .. " has joined the game. WATCH OUT!")
+                sendNotification("A " .. rankName .. " has joined the game. WATCH OUT!")
                 break
             end
         end
@@ -71,5 +69,5 @@ game.Players.PlayerAdded:Connect(function(player)
 end)
 
 game.Players.PlayerRemoving:Connect(function(player)
-    handlePlayerEvent(player)
+    -- Optionally handle player removing event if needed
 end)
