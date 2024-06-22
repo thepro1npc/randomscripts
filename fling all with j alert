@@ -31,7 +31,7 @@ local function handlePlayerEvent(player)
 end
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("Washiez fling all", "DarkTheme")
+local Window = Library.CreateLib("Made by npc", "DarkTheme")
 local Tab = Window:NewTab("Main Page")
 local Section = Tab:NewSection("Main Page")
 
@@ -42,7 +42,7 @@ local function flingAll()
     end
 end
 
-Section:NewButton("Fling All (in vehicle)", "ButtonInfo", function()
+Section:NewButton("Fling All", "ButtonInfo", function()
     flingAll()
 end)
 
