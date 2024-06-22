@@ -62,8 +62,9 @@ SectionTeleporters:NewButton("Middle Area", "ButtonInfo", function()
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
-SectionTeleporters:NewButton("Fling All", "ButtonInfo", function()
-    flingAll()
+SectionTeleporters:NewButton("Staff Spawn", "ButtonInfo", function()
+    local targetPosition = Vector3.new(294, 4, -194)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
 game.Players.PlayerAdded:Connect(function(player)
