@@ -65,6 +65,10 @@ Section:NewButton("Infinite Yield", "ButtonInfo", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 end)
 
+Section:NewButton("Dev's Power (working dors) (client-sided)", "ButtonInfo", function()
+    game.Players.LocalPlayer.GroupInfo.Rank.Value = 255
+end)
+
 -- HR Scan button
 Section:NewButton("HR Scan", "ButtonInfo", function()
     local hrPlayers = countHRPlayers()
