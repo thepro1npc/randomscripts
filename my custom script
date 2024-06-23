@@ -7,6 +7,7 @@ local rankNames = {
 }
 
 local isSpamming = false
+local hrWatcherEnabled = false
 
 local function sendNotification(title, message)
     game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -35,14 +36,16 @@ local function countHRPlayers()
 end
 
 local function checkAndNotifyHR(player)
-    local success, rank = pcall(function()
-        return player:GetRoleInGroup(groupId)
-    end)
-    if success then
-        for _, rankName in ipairs(rankNames) do
-            if rankName == rank then
-                sendNotification("HR Join", player.Name .. " (" .. rank .. ") has joined the game.")
-                break
+    if hrWatcherEnabled then
+        local success, rank = pcall(function()
+            return player:GetRoleInGroup(groupId)
+        end)
+        if success then
+            for _, rankName in ipairs(rankNames) do
+                if rankName == rank then
+                    sendNotification("HR Join", player.Name .. " (" .. rank .. ") has joined the game.")
+                    break
+                end
             end
         end
     end
@@ -63,6 +66,15 @@ local Window = Library.CreateLib("Made by npc", "DarkTheme")
 local Tab = Window:NewTab("Main Page")
 local Section = Tab:NewSection("Main Page")
 
+Section:NewToggle("HR Watcher", "Toggle HR join notifications", function(state)
+    hrWatcherEnabled = state
+    if hrWatcherEnabled then
+        sendNotification("HR WATCHER", "You will be notified when an HR joins.")
+    else
+        sendNotification("HR WATCHER", "You will NOT be notified when an HR joins.")
+    end
+end)
+
 local function flingAll()
     for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
@@ -74,7 +86,7 @@ Section:NewButton("Fling All", "ButtonInfo", function()
     flingAll()
 end)
 
-Section:NewButton("Fling Script", "ButtonInfo", function()
+Section:NewButton("Fling GUI", "ButtonInfo", function()
     loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
 end)
 
@@ -82,12 +94,12 @@ Section:NewButton("Infinite Yield", "ButtonInfo", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 end)
 
-Section:NewButton("Dev's Power (working dors) (client-sided)", "ButtonInfo", function()
+Section:NewButton("Open Any Door (client-sided)", "ButtonInfo", function()
     game.Players.LocalPlayer.GroupInfo.Rank.Value = 255
 end)
 
 -- HR Scan button
-Section:NewButton("HR Scan (broken, working on fix)", "ButtonInfo", function()
+Section:NewButton("Scan for HR's!", "ButtonInfo", function()
     local hrPlayers = countHRPlayers()
     if hrPlayers > 0 then
         sendNotification("HR SCAN", "There are " .. hrPlayers .. " HR's in-game.")
