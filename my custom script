@@ -70,24 +70,24 @@ local function flingAll()
     end
 end
 
-Section:NewButton("Fling All", "ButtonInfo", function()
+Section:NewButton("Fling All", "Teleports to users cars and flings them. MUST USE WITH FLING GUI!", function()
     flingAll()
 end)
 
-Section:NewButton("Fling GUI", "ButtonInfo", function()
+Section:NewButton("Fling GUI", "Simple, yet helpful, Fling GUI", function()
     loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
 end)
 
-Section:NewButton("Infinite Yield", "ButtonInfo", function()
+Section:NewButton("Infinite Yield", "Basic Commands", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 end)
 
-Section:NewButton("Open Any Door (client-sided)", "ButtonInfo", function()
+Section:NewButton("Open Any Door (client-sided)", "Lets you through any door (client sided)", function()
     game.Players.LocalPlayer.GroupInfo.Rank.Value = 255
 end)
 
 -- HR Scan button
-Section:NewButton("Scan for HR's!", "ButtonInfo", function()
+Section:NewButton("Scan for HR's!", "Scans for any In-Game HR's. Junior Director+", function()
     local hrPlayers = countHRPlayers()
     if (hrPlayers > 0) then
         sendNotification("HR SCAN", "There are " .. hrPlayers .. " HR's in-game.")
@@ -96,8 +96,7 @@ Section:NewButton("Scan for HR's!", "ButtonInfo", function()
     end
 end)
 
--- Chat Spammer toggle button (MOVED TO MAIN PAGE)
-local spamButton = Section:NewToggle("Spam Discord Invite", "ButtonInfo", function(state)
+local spamButton = Section:NewToggle("Spam Discord Invite", "Toggles to Spam the Discord Invite", function(state)
     isSpamming = state
     if (isSpamming) then
         spamChat()
