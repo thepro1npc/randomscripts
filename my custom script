@@ -96,6 +96,36 @@ Section:NewButton("Scan for HR's!", "Scans for any In-Game HR's. Junior Director
     end
 end)
 
+-- MR Scan button
+Section:NewButton("Scan for MR's!", "Scans for any In-Game MR's. Shift Leader, Supervisor, Assistant Manager, General Manager", function()
+    local mrRankNames = {"Shift Leader", "Supervisor", "Assistant Manager", "General Manager"}
+    
+    local function countMRPlayers()
+        local mrCount = 0
+        for _, player in ipairs(game.Players:GetPlayers()) do
+            local success, rank = pcall(function()
+                return player:GetRoleInGroup(groupId)
+            end)
+            if success then
+                for _, rankName in ipairs(mrRankNames) do
+                    if rankName == rank then
+                        mrCount = mrCount + 1
+                        break
+                    end
+                end
+            end
+        end
+        return mrCount
+    end
+
+    local mrPlayers = countMRPlayers()
+    if (mrPlayers > 0) then
+        sendNotification("MR SCAN", "There are " .. mrPlayers .. " MR's in-game.")
+    else
+        sendNotification("MR SCAN", "No MR's found in-game.")
+    end
+end)
+
 local spamButton = Section:NewToggle("Spam Discord Invite", "Toggles to Spam the Discord Invite", function(state)
     isSpamming = state
     if (isSpamming) then
