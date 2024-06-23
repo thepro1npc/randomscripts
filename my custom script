@@ -86,7 +86,6 @@ Section:NewButton("Open Any Door (client-sided)", "Lets you through any door (cl
     game.Players.LocalPlayer.GroupInfo.Rank.Value = 255
 end)
 
--- HR Scan button
 Section:NewButton("Scan for HR's!", "Scans for any In-Game HR's. Junior Director+", function()
     local hrPlayers = countHRPlayers()
     if (hrPlayers > 0) then
@@ -125,14 +124,6 @@ Section:NewButton("Scan for MR's!", "Scans for any In-Game MR's. Shift Leader, S
     if (mrPlayers > 0) then
         local rankText = table.concat(mrRanks, ", ")
         sendNotification("RANK TELLER", rankText)
-    else
-        sendNotification("MR SCAN", "No MR's found in-game.")
-    end
-end)
-
-    local mrPlayers = countMRPlayers()
-    if (mrPlayers > 0) then
-        sendNotification("MR SCAN", "There are " .. mrPlayers .. " MR's in-game.")
     else
         sendNotification("MR SCAN", "No MR's found in-game.")
     end
@@ -232,11 +223,3 @@ SectionTrainingTeleporters:NewButton("Group F", "ButtonInfo", function()
 end)
 
 -- Start spamming Discord invite when script runs
-if (isSpamming) then
-    spamChat()
-end
-
--- Initial HR check on script execution
-for _, player in ipairs(game.Players:GetPlayers()) do
-    checkAndNotifyHR(player)
-end
