@@ -102,6 +102,8 @@ Section:NewButton("Scan for MR's!", "Scans for any In-Game MR's. Shift Leader, S
     
     local function countMRPlayers()
         local mrCount = 0
+        local mrRanks = {} -- Table to store MR ranks
+        
         for _, player in ipairs(game.Players:GetPlayers()) do
             local success, rank = pcall(function()
                 return player:GetRoleInGroup(groupId)
@@ -110,13 +112,23 @@ Section:NewButton("Scan for MR's!", "Scans for any In-Game MR's. Shift Leader, S
                 for _, rankName in ipairs(mrRankNames) do
                     if rankName == rank then
                         mrCount = mrCount + 1
+                        table.insert(mrRanks, rank) -- Store MR's rank
                         break
                     end
                 end
             end
         end
-        return mrCount
+        return mrCount, mrRanks
     end
+
+    local mrPlayers, mrRanks = countMRPlayers()
+    if (mrPlayers > 0) then
+        local rankText = table.concat(mrRanks, ", ")
+        sendNotification("RANK TELLER", rankText)
+    else
+        sendNotification("MR SCAN", "No MR's found in-game.")
+    end
+end)
 
     local mrPlayers = countMRPlayers()
     if (mrPlayers > 0) then
