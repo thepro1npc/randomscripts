@@ -7,7 +7,6 @@ local rankNames = {
 }
 
 local isSpamming = false
-local hrWatcherEnabled = false
 
 local function sendNotification(title, message)
     game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -36,16 +35,14 @@ local function countHRPlayers()
 end
 
 local function checkAndNotifyHR(player)
-    if hrWatcherEnabled then
-        local success, rank = pcall(function()
-            return player:GetRoleInGroup(groupId)
-        end)
-        if success then
-            for _, rankName in ipairs(rankNames) do
-                if rankName == rank then
-                    sendNotification("HR Join", player.Name .. " (" .. rank .. ") has joined the game.")
-                    break
-                end
+    local success, rank = pcall(function()
+        return player:GetRoleInGroup(groupId)
+    end)
+    if success then
+        for _, rankName in ipairs(rankNames) do
+            if rankName == rank then
+                sendNotification("HR Join", player.Name .. " (" .. rank .. ") has joined the game.")
+                break
             end
         end
     end
@@ -65,15 +62,6 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHept
 local Window = Library.CreateLib("Made by npc", "DarkTheme")
 local Tab = Window:NewTab("Main Page")
 local Section = Tab:NewSection("Main Page")
-
-Section:NewToggle("HR Watcher", "Toggle HR join notifications", function(state)
-    hrWatcherEnabled = state
-    if hrWatcherEnabled then
-        sendNotification("HR WATCHER", "You will be notified when an HR joins.")
-    else
-        sendNotification("HR WATCHER", "You will NOT be notified when an HR joins.")
-    end
-end)
 
 local function flingAll()
     for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
@@ -101,7 +89,7 @@ end)
 -- HR Scan button
 Section:NewButton("Scan for HR's!", "ButtonInfo", function()
     local hrPlayers = countHRPlayers()
-    if hrPlayers > 0 then
+    if (hrPlayers > 0) then
         sendNotification("HR SCAN", "There are " .. hrPlayers .. " HR's in-game.")
     else
         sendNotification("HR SCAN", "No HR's found in-game.")
@@ -111,7 +99,7 @@ end)
 -- Chat Spammer toggle button (MOVED TO MAIN PAGE)
 local spamButton = Section:NewToggle("Spam Discord Invite", "ButtonInfo", function(state)
     isSpamming = state
-    if isSpamming then
+    if (isSpamming) then
         spamChat()
     end
 end)
@@ -203,7 +191,7 @@ SectionTrainingTeleporters:NewButton("Group F", "ButtonInfo", function()
 end)
 
 -- Start spamming Discord invite when script runs
-if isSpamming then
+if (isSpamming) then
     spamChat()
 end
 
