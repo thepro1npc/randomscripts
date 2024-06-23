@@ -70,7 +70,7 @@ Section:NewButton("Dev's Power (working dors) (client-sided)", "ButtonInfo", fun
 end)
 
 -- HR Scan button
-Section:NewButton("HR Scan", "ButtonInfo", function()
+Section:NewButton("HR Scan (broken, working on fix)", "ButtonInfo", function()
     local hrPlayers = countHRPlayers()
     if hrPlayers > 0 then
         sendNotification("HR SCAN", "There are " .. hrPlayers .. " HR's in-game.")
