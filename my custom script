@@ -1,6 +1,6 @@
 local groupId = 10261023
 local rankNames = {
-    "Trainee", "Junior Operator", "Senior Operator", "Head Operator", "Shift Leader", "Junior Director", "Senior Director", "Head Director", "Corporate Intern", 
+    "Junior Director", "Senior Director", "Head Director", "Corporate Intern", 
     "Junior Corporate", "Senior Corporate", "Head Corporate", "Chief Human Resources Officer",
     "Chief Public Relations Officer", "Chief Operating Officer", "Chief Administrative Officer",
     "Developer", "Vice Chairman", "Chairman"
