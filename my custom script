@@ -23,8 +23,8 @@ local function countHRPlayers()
             return player:GetRoleInGroup(groupId)
         end)
         if success then
-            for _, rankName in ipairs(rankNames) do
-                if rankName == rank then
+            for _, hrRank in ipairs(rankNames) do
+                if hrRank == rank then
                     hrCount = hrCount + 1
                     break
                 end
@@ -42,32 +42,12 @@ local function spamChat()
 end
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("Washiez Exploit gui", "DarkTheme")
-local Tab = Window:NewTab("Washiez")
-local Section = Tab:NewSection("Washiez")
+local Window = Library.CreateLib("Made by npc", "DarkTheme")
+local Tab = Window:NewTab("Main Page")
+local Section = Tab:NewSection("Main Page")
 
-Section:NewToggle("Toggle tping to all cars", "ToglInfo", function(state)
-    if state then
-        _G.on = true
-        while _G.on do
-            task.wait(0.1)
-            for i, v in pairs(workspace.SpawnedCars:GetChildren()) do
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
-                wait(0.1)
-            end
-        end
-    else
-        _G.on = false
-    end
-end)
-
-Section:NewButton("Fling script", "ButtonInfo", function()
-    loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
-end)
-
-
-Section:NewButton("Training center bypass", "ButtonInfo", function()
-    loadstring(game:HttpGet("https://scriptblox.com/raw/Washiez-Car-Wash-Anti-Cheat-Bypass-10917"))()
+Section:NewButton("Test Notification", "ButtonInfo", function()
+    sendNotification("Test Notification", "This is a test notification.")
 end)
 
 -- HR Scan button
@@ -88,90 +68,93 @@ local spamButton = Section:NewToggle("Spam Discord Invite", "ButtonInfo", functi
     end
 end)
 
+local TabTeleporters = Window:NewTab("Teleporters")
+local SectionTeleporters = TabTeleporters:NewSection("Teleporters")
 
-local Section = Tab:NewSection("TEST")
-
-Section:NewButton("Fling All", "ButtonInfo", function()
-    flingAll()
-end)
-
-Section:NewButton("Fling Script", "ButtonInfo", function()
-    loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
-end)
-
-game.Players.PlayerAdded:Connect(function(player)
-    handlePlayerEvent(player, "Player joined", "joined")
-end)
-
-game.Players.PlayerRemoving:Connect(function(player)
-    handlePlayerEvent(player, "Player left", "left")
-end) 
-
--- Teleports
-local Tab = Window:NewTab("Teleports")
-local Section = Tab:NewSection("Main Teleports")
-
-Section:NewButton("Middle Area", "ButtonInfo", function()
+SectionTeleporters:NewButton("Middle Area", "ButtonInfo", function()
     local targetPosition = Vector3.new(351, 4, 100)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
-Section:NewButton("Staff Spawn", "ButtonInfo", function()
-    local targetPosition = Vector3.new(294, 4, -194)
+SectionTeleporters:NewButton("Cafe", "ButtonInfo", function()
+    local targetPosition = Vector3.new(463, 4, 206)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
-Section:NewButton("Main Spawn", "ButtonInfo", function()
-    local targetPosition = Vector3.new(-106, 4, 108)
+SectionTeleporters:NewButton("Gas Station", "ButtonInfo", function()
+    local targetPosition = Vector3.new(494, 3, -181)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
-Section:NewButton("Cafe", "ButtonInfo", function()
-    local targetPosition = Vector3.new(470, 4, 207)
+SectionTeleporters:NewButton("Headquarters", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-46, 4, -201)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
-Section:NewButton("Gas Station", "ButtonInfo", function()
-    local targetPosition = Vector3.new(474, 4, -148)
+SectionTeleporters:NewButton("Secret Room", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-130, -15, -201)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
-local Section = Tab:NewSection("Training Teleports")
+SectionTeleporters:NewButton("Prison Outdoor", "ButtonInfo", function()
+    local targetPosition = Vector3.new(257, 3, -504)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
 
-Section:NewButton("Group A", "ButtonInfo", function()
+SectionTeleporters:NewButton("Prison Indoor", "ButtonInfo", function()
+    local targetPosition = Vector3.new(267, 4, -570)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Raceway", "ButtonInfo", function()
+    local targetPosition = Vector3.new(449, 27, 470)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Spawn", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-106, 4, 99)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Staff Spawn", "ButtonInfo", function()
+    local targetPosition = Vector3.new(294, 4, -192)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+local TabTrainingTeleporters = Window:NewTab("Training Teleporters")
+local SectionTrainingTeleporters = TabTrainingTeleporters:NewSection("Training Teleporters")
+
+SectionTrainingTeleporters:NewButton("Group A", "ButtonInfo", function()
     local targetPosition = Vector3.new(-473, 4, -315)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
-Section:NewButton("Group B", "ButtonInfo", function()
+SectionTrainingTeleporters:NewButton("Group B", "ButtonInfo", function()
     local targetPosition = Vector3.new(-565, 4, -313)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
-Section:NewButton("Group C", "ButtonInfo", function()
+SectionTrainingTeleporters:NewButton("Group C", "ButtonInfo", function()
     local targetPosition = Vector3.new(-657, 4, -314)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
-Section:NewButton("Group D", "ButtonInfo", function()
+SectionTrainingTeleporters:NewButton("Group D", "ButtonInfo", function()
     local targetPosition = Vector3.new(-473, 4, -418)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
-Section:NewButton("Group E", "ButtonInfo", function()
+SectionTrainingTeleporters:NewButton("Group E", "ButtonInfo", function()
     local targetPosition = Vector3.new(-564, 4, -420)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
-Section:NewButton("Group F", "ButtonInfo", function()
+SectionTrainingTeleporters:NewButton("Group F", "ButtonInfo", function()
     local targetPosition = Vector3.new(-656, 4, -419)
     game.Players.LocalPlayer.Character:MoveTo(targetPosition)
 end)
 
--- Admin Tab
-local Tab = Window:NewTab("Admin")
-local Section = Tab:NewSection("Admin")
-
-Section:NewButton("Inf-Yield", "ButtonInfo", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-end)
+-- Start spamming Discord invite when script runs
+if isSpamming then
+    spamChat()
+end
