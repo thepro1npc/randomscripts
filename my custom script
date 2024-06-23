@@ -34,12 +34,29 @@ local function countHRPlayers()
     return hrCount
 end
 
+local function checkAndNotifyHR(player)
+    local success, rank = pcall(function()
+        return player:GetRoleInGroup(groupId)
+    end)
+    if success then
+        for _, rankName in ipairs(rankNames) do
+            if rankName == rank then
+                sendNotification("HR Join", player.Name .. " (" .. rank .. ") has joined the game.")
+                break
+            end
+        end
+    end
+end
+
 local function spamChat()
     while isSpamming do
         game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
         wait(1)
     end
 end
+
+-- Connect the PlayerAdded event to the checkAndNotifyHR function
+game.Players.PlayerAdded:Connect(checkAndNotifyHR)
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Window = Library.CreateLib("Made by npc", "DarkTheme")
@@ -176,4 +193,9 @@ end)
 -- Start spamming Discord invite when script runs
 if isSpamming then
     spamChat()
+end
+
+-- Initial HR check on script execution
+for _, player in ipairs(game.Players:GetPlayers()) do
+    checkAndNotifyHR(player)
 end
