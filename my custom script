@@ -53,6 +53,10 @@ local function flingAll()
     end
 end
 
+Section:NewButton("Test Notification", "ButtonInfo", function()
+    sendNotification("Test Notification", "This is a test notification.")
+end)
+
 Section:NewButton("Fling All", "ButtonInfo", function()
     flingAll()
 end)
