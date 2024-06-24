@@ -289,45 +289,13 @@ local Section = Tab:AddSection({
 	Name = "Misc"
 })
 
-local MarketplaceService = game:GetService("MarketplaceService")
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local TextService = game:GetService("TextService")
-
-local function getJobID(player)
-    local success, joinData = pcall(function()
-        return MarketplaceService:GetJoinDataForPlayerAsync(player.UserId)
-    end)
-    
-    if success and joinData then
-        return joinData.JobId
-    else
-        return nil
-    end
-end
-
-local function copyToClipboard(text)
-    if ReplicatedStorage:FindFirstChild("ClipboardCopy") then
-        ReplicatedStorage.ClipboardCopy:FireServer(text)
-    end
-end
-
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Players = game:GetService("Players")
-
-local ClipboardRequest = ReplicatedStorage:WaitForChild("ClipboardRequest")
+local clipboard = require("clipboard")  -- Assuming you have a Lua library for clipboard operations
 
 Section:AddButton({
     Name = "Copy JobID",
     Callback = function()
-        ClipboardRequest:FireServer(Players.LocalPlayer)
-    end
+        local jobId = tostring(game.JobId) -- Assuming the JobID is available in the 'game' object
+        clipboard.set(jobId) -- Assuming 'clipboard.set()' is a function for setting clipboard content
+        os.execute("echo JOB ID: " .. jobId .. " COPIED JOBID") -- Assuming 'os.execute' is available for notifications
+    end    
 })
-
-ClipboardRequest.OnClientEvent:Connect(function(jobID)
-    game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = "SUCCESSFUL JOBID",
-        Text = "JobID: " .. jobID,
-        Duration = 8 -- Duration in seconds, adjust as needed
-    })
-)
