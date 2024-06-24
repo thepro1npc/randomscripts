@@ -290,3 +290,5 @@ local Section = Tab:AddSection({
 })
 
 Tab:AddParagraph("VERSION","Beta 0.4")
+
+Tab:AddParagraph("DISCORD","discord.gg/washieztroll")
