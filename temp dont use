@@ -1,0 +1,27 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "MADE BY npc", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+local Tab = Window:MakeTab({
+	Name = "Main Page",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Main Page"
+})
+
+local function flingAll()
+    for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
+        task.wait(0.1)
+    end
+end
+
+Section:AddButton({
+	Name = "Fling All",
+	Callback = function()
+		flingAll()
+  		print("button pressed")
+  	end    
+})
