@@ -315,14 +315,11 @@ end
 Section:AddButton({
     Name = "Copy JobID",
     Callback = function()
-        local player = Players.LocalPlayer
-        local jobID = getJobID(player)
-        
-        if jobID then
-            copyToClipboard(jobID)
-            print("JobID copied to clipboard:", jobID)
-        else
-            warn("Failed to get JobID.")
-        end
+        local jobID = game.JobId
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "SUCCESSFUL JOBID",
+            Text = "JobID: " .. jobID,
+            Duration = 8 -- Duration in seconds, adjust as needed
+        })
     end
 })
