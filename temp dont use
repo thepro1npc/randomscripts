@@ -289,13 +289,4 @@ local Section = Tab:AddSection({
 	Name = "Misc"
 })
 
-local clipboard = require("clipboard")  -- Assuming you have a Lua library for clipboard operations
-
-Section:AddButton({
-    Name = "Copy JobID",
-    Callback = function()
-        local jobId = tostring(game.JobId) -- Assuming the JobID is available in the 'game' object
-        clipboard.set(jobId) -- Assuming 'clipboard.set()' is a function for setting clipboard content
-        os.execute("echo JOB ID: " .. jobId .. " COPIED JOBID") -- Assuming 'os.execute' is available for notifications
-    end    
-})
+Tab:AddLabel("Version: Beta 0.1")
