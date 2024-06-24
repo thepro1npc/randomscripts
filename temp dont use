@@ -312,14 +312,22 @@ local function copyToClipboard(text)
     end
 end
 
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+
+local ClipboardRequest = ReplicatedStorage:WaitForChild("ClipboardRequest")
+
 Section:AddButton({
     Name = "Copy JobID",
     Callback = function()
-        local jobID = game.JobId
-        game:GetService("StarterGui"):SetCore("SendNotification", {
-            Title = "SUCCESSFUL JOBID",
-            Text = "JobID: " .. jobID,
-            Duration = 8 -- Duration in seconds, adjust as needed
-        })
+        ClipboardRequest:FireServer(Players.LocalPlayer)
     end
 })
+
+ClipboardRequest.OnClientEvent:Connect(function(jobID)
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "SUCCESSFUL JOBID",
+        Text = "JobID: " .. jobID,
+        Duration = 8 -- Duration in seconds, adjust as needed
+    })
+)
