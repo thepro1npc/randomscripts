@@ -150,10 +150,131 @@ local Section = Tab:AddSection({
 })
 
 Section:AddButton({
+    Name = "Spawn",
+    Callback = function()
+		local targetPosition = Vector3.new(-106, 4, 99)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end    
+})
+
+Section:AddButton({
     Name = "Middle Area",
+    Callback = function()
+		local targetPosition = Vector3.new(351, 4, 100)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end    
+})
+
+Section:AddButton({
+    Name = "Cafe",
     Callback = function()
 		local targetPosition = Vector3.new(463, 4, 206)
 		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-        print("Teleported to 351, 4, 100")
+    end    
+})
+
+Section:AddButton({
+    Name = "Gas Station",
+    Callback = function()
+		local targetPosition = Vector3.new(494, 3, -181)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end    
+})
+
+Section:AddButton({
+    Name = "Headquarters",
+    Callback = function()
+		local targetPosition = Vector3.new(-46, 4, -201)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end    
+})
+
+Section:AddButton({
+    Name = "Prison Outdoor",
+    Callback = function()
+		local targetPosition = Vector3.new(257, 3, -504)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end    
+})
+
+Section:AddButton({
+    Name = "Prison Indoor",
+    Callback = function()
+		local targetPosition = Vector3.new(267, 4, -570)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end    
+})
+
+Section:AddButton({
+    Name = "Raceway",
+    Callback = function()
+		local targetPosition = Vector3.new(449, 27, 470)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end    
+})
+
+Section:AddButton({
+    Name = "Staff Spawn",
+    Callback = function()
+		local targetPosition = Vector3.new(294, 4, -192)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end    
+})
+
+local Tab = Window:MakeTab({
+	Name = "Training Teleporters",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Training Teleporters"
+})
+
+Section:AddButton({
+    Name = "Group A",
+    Callback = function()
+		local targetPosition = Vector3.new(-473, 4, -315)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end    
+})
+
+Section:AddButton({
+    Name = "Group B",
+    Callback = function()
+		local targetPosition = Vector3.new(-565, 4, -313)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end    
+})
+
+Section:AddButton({
+    Name = "Group C",
+    Callback = function()
+		local targetPosition = Vector3.new(-657, 4, -314)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end    
+})
+
+Section:AddButton({
+    Name = "Group D",
+    Callback = function()
+		local targetPosition = Vector3.new(-473, 4, -418)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end    
+})
+
+Section:AddButton({
+    Name = "Group E",
+    Callback = function()
+		local targetPosition = Vector3.new(-564, 4, -420)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end    
+})
+
+Section:AddButton({
+    Name = "Group F",
+    Callback = function()
+		local targetPosition = Vector3.new(-656, 4, -419)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
     end    
 })
