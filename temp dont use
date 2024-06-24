@@ -278,15 +278,3 @@ Section:AddButton({
 		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
     end    
 })
-
-local Tab = Window:MakeTab({
-	Name = "Misc",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-local Section = Tab:AddSection({
-	Name = "Misc"
-})
-
-CoolLabel:Set("VERSION: Beta 0.4")
