@@ -58,168 +58,243 @@ end
 -- Connect the PlayerAdded event to the checkAndNotifyHR function
 game.Players.PlayerAdded:Connect(checkAndNotifyHR)
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("MADE BY npc", "Ocean")
-local Tab = Window:NewTab("Main Page")
-local Section = Tab:NewSection("Main Page")
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "MADE BY npc", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
-local function flingAll()
-    for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
-        task.wait(0.1)
+local MainTab = Window:MakeTab({
+    Name = "Main Page",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+MainTab:AddButton({
+    Name = "Fling All",
+    Callback = function()
+        for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
+            task.wait(0.1)
+        end
     end
-end
+})
 
-Section:NewButton("Fling All", "Teleports to users cars and flings them. MUST USE WITH FLING GUI!", function()
-    flingAll()
-end)
-
-Section:NewButton("Fling GUI", "Simple, yet helpful, Fling GUI", function()
-    loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
-end)
-
-Section:NewButton("Infinite Yield", "Basic Commands", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-end)
-
-Section:NewButton("Open Any Door (client-sided)", "Lets you through any door (client sided)", function()
-    game.Players.LocalPlayer.GroupInfo.Rank.Value = 255
-end)
-
-Section:NewButton("Scan for HR's!", "Scans for any In-Game HR's. Junior Director+", function()
-    local hrPlayers = countHRPlayers()
-    if (hrPlayers > 0) then
-        sendNotification("HR SCAN", "There are " .. hrPlayers .. " HR's in-game.")
-    else
-        sendNotification("HR SCAN", "No HR's found in-game.")
+MainTab:AddButton({
+    Name = "Fling GUI",
+    Callback = function()
+        loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
     end
-end)
+})
 
--- MR Scan button
-Section:NewButton("Scan for MR's!", "Scans for any In-Game MR's. Shift Leader, Supervisor, Assistant Manager, General Manager", function()
-    local mrRankNames = {"Shift Leader", "Supervisor", "Assistant Manager", "General Manager"}
-    
-    local function countMRPlayers()
-        local mrCount = 0
-        for _, player in ipairs(game.Players:GetPlayers()) do
-            local success, rank = pcall(function()
-                return player:GetRoleInGroup(groupId)
-            end)
-            if success then
-                for _, rankName in ipairs(mrRankNames) do
-                    if rankName == rank then
-                        mrCount = mrCount + 1
-                        break
+MainTab:AddButton({
+    Name = "Infinite Yield",
+    Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+    end
+})
+
+MainTab:AddButton({
+    Name = "Open Any Door (client-sided)",
+    Callback = function()
+        game.Players.LocalPlayer.GroupInfo.Rank.Value = 255
+    end
+})
+
+MainTab:AddButton({
+    Name = "Scan for HR's!",
+    Callback = function()
+        local hrPlayers = countHRPlayers()
+        if (hrPlayers > 0) then
+            sendNotification("HR SCAN", "There are " .. hrPlayers .. " HR's in-game.")
+        else
+            sendNotification("HR SCAN", "No HR's found in-game.")
+        end
+    end
+})
+
+MainTab:AddButton({
+    Name = "Scan for MR's!",
+    Callback = function()
+        local mrRankNames = {"Shift Leader", "Supervisor", "Assistant Manager", "General Manager"}
+
+        local function countMRPlayers()
+            local mrCount = 0
+            for _, player in ipairs(game.Players:GetPlayers()) do
+                local success, rank = pcall(function()
+                    return player:GetRoleInGroup(groupId)
+                end)
+                if success then
+                    for _, rankName in ipairs(mrRankNames) do
+                        if rankName == rank then
+                            mrCount = mrCount + 1
+                            break
+                        end
                     end
                 end
             end
+            return mrCount
         end
-        return mrCount
+
+        local mrPlayers = countMRPlayers()
+        if (mrPlayers > 0) then
+            sendNotification("MR SCAN", "There are " .. mrPlayers .. " MR's in-game.")
+        else
+            sendNotification("MR SCAN", "No MR's found in-game.")
+        end
     end
+})
 
-    local mrPlayers = countMRPlayers()
-    if (mrPlayers > 0) then
-        sendNotification("MR SCAN", "There are " .. mrPlayers .. " MR's in-game.")
-    else
-        sendNotification("MR SCAN", "No MR's found in-game.")
+MainTab:AddToggle({
+    Name = "Spam Discord Invite",
+    Default = false,
+    Callback = function(state)
+        isSpamming = state
+        if isSpamming then
+            spamChat()
+        end
     end
-end)
+})
 
-local spamButton = Section:NewToggle("Spam Discord Invite", "Toggles to Spam the Discord Invite", function(state)
-    isSpamming = state
-    if (isSpamming) then
-        spamChat()
+local TeleportTab = Window:MakeTab({
+    Name = "Teleporters",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+TeleportTab:AddButton({
+    Name = "Middle Area",
+    Callback = function()
+        local targetPosition = Vector3.new(351, 4, 100)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
     end
-end)
+})
 
-local TabTeleporters = Window:NewTab("Teleporters")
-local SectionTeleporters = TabTeleporters:NewSection("Teleporters")
+TeleportTab:AddButton({
+    Name = "Cafe",
+    Callback = function()
+        local targetPosition = Vector3.new(463, 4, 206)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
-SectionTeleporters:NewButton("Middle Area", "ButtonInfo", function()
-    local targetPosition = Vector3.new(351, 4, 100)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
+TeleportTab:AddButton({
+    Name = "Gas Station",
+    Callback = function()
+        local targetPosition = Vector3.new(494, 3, -181)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
-SectionTeleporters:NewButton("Cafe", "ButtonInfo", function()
-    local targetPosition = Vector3.new(463, 4, 206)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
+TeleportTab:AddButton({
+    Name = "Headquarters",
+    Callback = function()
+        local targetPosition = Vector3.new(-46, 4, -201)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
-SectionTeleporters:NewButton("Gas Station", "ButtonInfo", function()
-    local targetPosition = Vector3.new(494, 3, -181)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
+TeleportTab:AddButton({
+    Name = "Secret Room",
+    Callback = function()
+        local targetPosition = Vector3.new(-130, -15, -201)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
-SectionTeleporters:NewButton("Headquarters", "ButtonInfo", function()
-    local targetPosition = Vector3.new(-46, 4, -201)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
+TeleportTab:AddButton({
+    Name = "Prison Outdoor",
+    Callback = function()
+        local targetPosition = Vector3.new(257, 3, -504)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
-SectionTeleporters:NewButton("Secret Room", "ButtonInfo", function()
-    local targetPosition = Vector3.new(-130, -15, -201)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
+TeleportTab:AddButton({
+    Name = "Prison Indoor",
+    Callback = function()
+        local targetPosition = Vector3.new(267, 4, -570)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
-SectionTeleporters:NewButton("Prison Outdoor", "ButtonInfo", function()
-    local targetPosition = Vector3.new(257, 3, -504)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
+TeleportTab:AddButton({
+    Name = "Raceway",
+    Callback = function()
+        local targetPosition = Vector3.new(449, 27, 470)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
-SectionTeleporters:NewButton("Prison Indoor", "ButtonInfo", function()
-    local targetPosition = Vector3.new(267, 4, -570)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
+TeleportTab:AddButton({
+    Name = "Spawn",
+    Callback = function()
+        local targetPosition = Vector3.new(-106, 4, 99)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
-SectionTeleporters:NewButton("Raceway", "ButtonInfo", function()
-    local targetPosition = Vector3.new(449, 27, 470)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
+TeleportTab:AddButton({
+    Name = "Staff Spawn",
+    Callback = function()
+        local targetPosition = Vector3.new(294, 4, -192)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
-SectionTeleporters:NewButton("Spawn", "ButtonInfo", function()
-    local targetPosition = Vector3.new(-106, 4, 99)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
+local TrainingTab = Window:MakeTab({
+    Name = "Training Teleporters",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
 
-SectionTeleporters:NewButton("Staff Spawn", "ButtonInfo", function()
-    local targetPosition = Vector3.new(294, 4, -192)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
+TrainingTab:AddButton({
+    Name = "Group A",
+    Callback = function()
+        local targetPosition = Vector3.new(-473, 4, -315)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
-local TabTrainingTeleporters = Window:NewTab("Training Teleporters")
-local SectionTrainingTeleporters = TabTrainingTeleporters:NewSection("Training Teleporters")
+TrainingTab:AddButton({
+    Name = "Group B",
+    Callback = function()
+        local targetPosition = Vector3.new(-565, 4, -313)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
-SectionTrainingTeleporters:NewButton("Group A", "ButtonInfo", function()
-    local targetPosition = Vector3.new(-473, 4, -315)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
+TrainingTab:AddButton({
+    Name = "Group C",
+    Callback = function()
+        local targetPosition = Vector3.new(-657, 4, -314)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
-SectionTrainingTeleporters:NewButton("Group B", "ButtonInfo", function()
-    local targetPosition = Vector3.new(-565, 4, -313)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
+TrainingTab:AddButton({
+    Name = "Group D",
+    Callback = function()
+        local targetPosition = Vector3.new(-473, 4, -418)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
-SectionTrainingTeleporters:NewButton("Group C", "ButtonInfo", function()
-    local targetPosition = Vector3.new(-657, 4, -314)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
+TrainingTab:AddButton({
+    Name = "Group E",
+    Callback = function()
+        local targetPosition = Vector3.new(-564, 4, -420)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
-SectionTrainingTeleporters:NewButton("Group D", "ButtonInfo", function()
-    local targetPosition = Vector3.new(-473, 4, -418)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
-
-SectionTrainingTeleporters:NewButton("Group E", "ButtonInfo", function()
-    local targetPosition = Vector3.new(-564, 4, -420)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
-
-SectionTrainingTeleporters:NewButton("Group F", "ButtonInfo", function()
-    local targetPosition = Vector3.new(-656, 4, -419)
-    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-end)
+TrainingTab:AddButton({
+    Name = "Group F",
+    Callback = function()
+        local targetPosition = Vector3.new(-656, 4, -419)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end
+})
 
 -- Start spamming Discord invite when script runs
-if (isSpamming) then
+if isSpamming then
     spamChat()
 end
 
