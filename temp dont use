@@ -127,7 +127,7 @@ Section:AddButton({
 local isSpamming = false
 
 Section:AddToggle({
-	Name = "This is a toggle!",
+	Name = "Spam Discord Invite",
 	Default = false,
 	Callback = function(Value)
 		isSpamming = Value
@@ -278,3 +278,21 @@ Section:AddButton({
 		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
     end    
 })
+
+local Tab = Window:MakeTab({
+	Name = "Training Teleporters",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Training Teleporters"
+})
+
+Tab:AddLabel("Test")
+
+
+
+
+
+OrionLib:Init()
