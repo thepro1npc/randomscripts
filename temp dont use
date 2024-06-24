@@ -278,3 +278,51 @@ Section:AddButton({
 		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
     end    
 })
+
+local Tab = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Misc"
+})
+
+local MarketplaceService = game:GetService("MarketplaceService")
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TextService = game:GetService("TextService")
+
+local function getJobID(player)
+    local success, joinData = pcall(function()
+        return MarketplaceService:GetJoinDataForPlayerAsync(player.UserId)
+    end)
+    
+    if success and joinData then
+        return joinData.JobId
+    else
+        return nil
+    end
+end
+
+local function copyToClipboard(text)
+    if ReplicatedStorage:FindFirstChild("ClipboardCopy") then
+        ReplicatedStorage.ClipboardCopy:FireServer(text)
+    end
+end
+
+Section:AddButton({
+    Name = "Copy JobID",
+    Callback = function()
+        local player = Players.LocalPlayer
+        local jobID = getJobID(player)
+        
+        if jobID then
+            copyToClipboard(jobID)
+            print("JobID copied to clipboard:", jobID)
+        else
+            warn("Failed to get JobID.")
+        end
+    end
+})
