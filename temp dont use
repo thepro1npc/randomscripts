@@ -110,7 +110,22 @@ Section:AddButton({
 	Name = "Scan for HR's!",
 	Callback = function()
 		local hrCount = countPlayersByRank(hrRankNames)
-		sendNotification("HR SCAN", "There are " .. hrCount .. " HR's in-game.")
+		local hrUsernames = {}  -- Table to store HR usernames
+		for _, player in ipairs(game.Players:GetPlayers()) do
+			local success, rank = pcall(function()
+				return player:GetRoleInGroup(groupId)
+			end)
+			if success then
+				for _, rankName in ipairs(hrRankNames) do
+					if rankName == rank then
+						table.insert(hrUsernames, player.Name)  -- Add HR username to the table
+						break
+					end
+				end
+			end
+		end
+		local hrUsernamesStr = table.concat(hrUsernames, ", ")  -- Concatenate usernames into a string
+		sendNotification("HR SCAN", "There are " .. hrCount .. " HR's in-game:\n" .. hrUsernamesStr)
   		print("HR scan completed")
   	end    
 })
