@@ -289,10 +289,4 @@ local Section = Tab:AddSection({
 	Name = "Training Teleporters"
 })
 
-Tab:AddLabel("Test")
-
-
-
-
-
-OrionLib:Init()
+Tab:AddParagraph("Paragraph","Paragraph Content")
