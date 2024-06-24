@@ -289,7 +289,7 @@ local Section = Tab:AddSection({
 	Name = "Misc"
 })
 
-local hrParagraph = Tab:AddParagraph("HR in-game", "")
+local hrParagraph = Tab:AddParagraph("HR in-game", "x")
 
 local function updateHRCount()
     local hrCount = countPlayersByRank(hrRankNames)
@@ -305,4 +305,6 @@ spawn(function()
         wait(3)
         updateHRCount()
     end
+end)
+
 end)
