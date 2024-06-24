@@ -280,13 +280,31 @@ Section:AddButton({
 })
 
 local Tab = Window:MakeTab({
-	Name = "Training Teleporters",
+	Name = "Misc",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
 local Section = Tab:AddSection({
-	Name = "Training Teleporters"
+	Name = "Misc"
 })
 
-Tab:AddParagraph("Paragraph","Paragraph Content")
+local hrParagraph = Tab:AddParagraph("HR in-game", "")
+
+local function updateHRCount()
+    local hrCount = countPlayersByRank(hrRankNames)
+    hrParagraph:SetText("HR in-game: " .. hrCount)
+end
+
+-- Initial update
+updateHRCount()
+
+-- Schedule periodic updates every 3 seconds
+spawn(function()
+    while true do
+        wait(3)
+        updateHRCount()
+    end
+end)
+
+Tab:AddParagraph("CURRENT VERSION","B0.5")
