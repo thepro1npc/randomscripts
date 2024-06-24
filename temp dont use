@@ -306,5 +306,3 @@ spawn(function()
         updateHRCount()
     end
 end)
-
-Tab:AddParagraph("CURRENT VERSION","B0.5")
