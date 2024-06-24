@@ -337,3 +337,11 @@ local Section = Tab:AddSection({
 Tab:AddParagraph("VERSION","Beta 0.4")
 
 Tab:AddParagraph("DISCORD","discord.gg/washieztroll")
+
+Section:AddButton({
+    Name = "Raid Meetup (if neded)",
+    Callback = function()
+		local targetPosition = Vector3.new(799, 3, -590)
+		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+    end    
+})
