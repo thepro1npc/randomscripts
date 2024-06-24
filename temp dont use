@@ -126,8 +126,7 @@ Section:AddButton({
 		end
 		local hrUsernamesStr = table.concat(hrUsernames, ", ")  -- Concatenate usernames into a string
 		if hrCount > 3 then
-			sendNotification("HR SCAN", "There are " .. hrCount .. " HR's in-game:\n" .. hrUsernamesStr:sub(1, hrUsernamesStr:find(",", 1, true) - 1))
-			sendNotification("Additional HR's", hrUsernamesStr:sub(hrUsernamesStr:find(",", 1, true) + 2))
+			sendNotification("HR SCAN", "There are " .. hrCount .. " HR's in-game:\n" .. hrUsernamesStr)
 		else
 			sendNotification("HR SCAN", "There are " .. hrCount .. " HR's in-game:\n" .. hrUsernamesStr)
 		end
@@ -155,8 +154,7 @@ Section:AddButton({
 		end
 		local mrUsernamesStr = table.concat(mrUsernames, ", ")  -- Concatenate usernames into a string
 		if mrCount > 3 then
-			sendNotification("MR SCAN", "There are " .. mrCount .. " MR's in-game:\n" .. mrUsernamesStr:sub(1, mrUsernamesStr:find(",", 1, true) - 1))
-			sendNotification("Additional MR's", mrUsernamesStr:sub(mrUsernamesStr:find(",", 1, true) + 2))
+			sendNotification("MR SCAN", "There are " .. mrCount .. " MR's in-game:\n" .. mrUsernamesStr)
 		else
 			sendNotification("MR SCAN", "There are " .. mrCount .. " MR's in-game:\n" .. mrUsernamesStr)
 		end
