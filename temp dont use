@@ -306,5 +306,3 @@ spawn(function()
         updateHRCount()
     end
 end)
-
-end)
