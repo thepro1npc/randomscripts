@@ -74,6 +74,13 @@ end
 -- Listen for new players joining
 game.Players.PlayerAdded:Connect(checkAndNotifyHR)
 
+local function flingAll()
+    for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
+        task.wait(0.1)
+    end
+end
+
 Section:AddButton({
 	Name = "Fling All",
 	Callback = function()
