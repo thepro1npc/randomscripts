@@ -183,9 +183,9 @@ local Toggle = Tab:CreateToggle({
    CurrentValue = false,
    Flag = "SpamToggle",
    Callback = function(Value)
-       while Value do
+       while Value == true do
            wait(1) -- Wait for 1 second
-           game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
+           game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
        end
    end
 })
