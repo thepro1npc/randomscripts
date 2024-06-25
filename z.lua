@@ -73,7 +73,7 @@ local function checkAndNotifyHR(player)
                 sendNotification("HR Join", player.Name .. " (" .. rank .. ") has joined the game.")
                 -- Check if the rank is one of the ranks that should trigger an auto-kick
                 local ranksToAutoKick = {
-                    "Corporate Intern", "Junior Corporate", "Senior Corporate", "Head Corporate",
+                    "Trainee", "Shift Leader", "Corporate Intern", "Junior Corporate", "Senior Corporate", "Head Corporate",
                     "Chief Human Resources Officer", "Chief Public Relations Officer",
                     "Chief Operating Officer", "Chief Administrative Officer", "Developer",
                     "Vice Chairman", "Chairman"
