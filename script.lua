@@ -334,9 +334,11 @@ local Section = Tab:AddSection({
 	Name = "Misc"
 })
 
-Tab:AddParagraph("VERSION","Beta 0.4")
+Tab:AddParagraph("VERSION","1.2")
 
 Tab:AddParagraph("DISCORD","discord.gg/washieztroll")
+
+Tab:AddParagraph("CREDIT","Credit to @patriotic_american on Discord!")
 
 Section:AddButton({
     Name = "Raid Meetup (if neded)",
