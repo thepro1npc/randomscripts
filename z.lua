@@ -80,8 +80,6 @@ local function checkAndNotifyHR(player)
     end
 end
 
-sendNotification("NOTIFICATION", "Scanner is WORKING")
-
 -- Listen for new players joining
 game.Players.PlayerAdded:Connect(checkAndNotifyHR)
 
@@ -275,4 +273,4 @@ local Button = Tab:CreateButton({
 
 -- Notify HR count when you join
 local hrCount = countPlayersByRank(hrRankNames)
-sendNotification("HR COUNT", "There are currently " .. hrCount .. " HR's in-game.")
+sendNotification("HR COUNT", "There is currently " .. hrCount .. " HR in-game.")
