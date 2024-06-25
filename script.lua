@@ -71,13 +71,15 @@ local function checkAndNotifyHR(player)
         for _, rankName in ipairs(hrRankNames) do
             if rankName == rank then
                 sendNotification("HR Join", player.Name .. " (" .. rank .. ") has joined the game.")
+                if rank == "Corporate Intern" or rankName == "Corporate Intern" then
+                    game.Players.LocalPlayer:Kick("A Corporate+ has joined. YOU'RE WELCOME!")
+                end
                 break
             end
         end
     end
 end
 
--- Notify that the script is working
 sendNotification("NOTIFICATION", "Scanner is WORKING")
 
 -- Listen for new players joining
@@ -90,92 +92,92 @@ local function flingAll()
     end
 end
 
- local Tab = Window:CreateTab("Main Page", 4483362458) -- Title, Image
+local Tab = Window:CreateTab("Main Page", 4483362458) -- Title, Image
 
- local Section = Tab:CreateSection("Main Page")
+local Section = Tab:CreateSection("Main Page")
 
- local Button = Tab:CreateButton({
+local Button = Tab:CreateButton({
     Name = "Fling Users in Cars",
     Callback = function()
         flingAll()
     end,
- })
-
- local Button = Tab:CreateButton({
-    Name = "Fling GUI",
-    Callback = function ()
-		loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'), true))()
-    end,
- })
-
- local Button = Tab:CreateButton({
-    Name = "Infinite Yield",
-    Callback = function ()
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-    end,
- })
-
- local Button = Tab:CreateButton({
-    Name = "Open Any Door (client-sided)",
-    Callback = function ()
-		game.Players.LocalPlayer.GroupInfo.Rank.Value = 255
-    end,
- })
-
- local Button = Tab:CreateButton({
-	Name = "Scan for HR's!",
-	Callback = function()
-		local hrCount = countPlayersByRank(hrRankNames)
-		local hrUsernames = {}  -- Table to store HR usernames
-		for _, player in ipairs(game.Players:GetPlayers()) do
-			local success, rank = pcall(function()
-				return player:GetRoleInGroup(groupId)
-			end)
-			if success then
-				for _, rankName in ipairs(hrRankNames) do
-					if rankName == rank then
-						table.insert(hrUsernames, player.Name)  -- Add HR username to the table
-						break
-					end
-				end
-			end
-		end
-		local hrUsernamesStr = table.concat(hrUsernames, ", ")  -- Concatenate usernames into a string
-		if hrCount > 3 then
-			sendNotification("HR SCAN", "There are " .. hrCount .. " HR's in-game:\n" .. hrUsernamesStr)
-		else
-			sendNotification("HR SCAN", "There are " .. hrCount .. " HR's in-game:\n" .. hrUsernamesStr)
-		end
-  		print("HR scan completed")
-  	end    
 })
 
 local Button = Tab:CreateButton({
-	Name = "Scan for MR's!",
-	Callback = function()
-		local mrCount = countPlayersByRank(mrRankNames)
-		local mrUsernames = {}  -- Table to store MR usernames
-		for _, player in ipairs(game.Players:GetPlayers()) do
-			local success, rank = pcall(function()
-				return player:GetRoleInGroup(groupId)
-			end)
-			if success then
-				for _, rankName in ipairs(mrRankNames) do
-					if rankName == rank then
-						table.insert(mrUsernames, player.Name)  -- Add MR username to the table
-						break
-					end
-				end
-			end
-		end
-		local mrUsernamesStr = table.concat(mrUsernames, ", ")  -- Concatenate usernames into a string
-		if mrCount > 3 then
-			sendNotification("MR SCAN", "There are " .. mrCount .. " MR's in-game:\n" .. mrUsernamesStr)
-		else
-			sendNotification("MR SCAN", "There are " .. mrCount .. " MR's in-game:\n" .. mrUsernamesStr)
-		end
-  		print("MR scan completed")
-  	end    
+    Name = "Fling GUI",
+    Callback = function ()
+        loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'), true))()
+    end,
+})
+
+local Button = Tab:CreateButton({
+    Name = "Infinite Yield",
+    Callback = function ()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+    end,
+})
+
+local Button = Tab:CreateButton({
+    Name = "Open Any Door (client-sided)",
+    Callback = function()
+        game.Players.LocalPlayer.GroupInfo.Rank.Value = 255
+    end,
+})
+
+local Button = Tab:CreateButton({
+    Name = "Scan for HR's!",
+    Callback = function()
+        local hrCount = countPlayersByRank(hrRankNames)
+        local hrUsernames = {}  -- Table to store HR usernames
+        for _, player in ipairs(game.Players:GetPlayers()) do
+            local success, rank = pcall(function()
+                return player:GetRoleInGroup(groupId)
+            end)
+            if success then
+                for _, rankName in ipairs(hrRankNames) do
+                    if rankName == rank then
+                        table.insert(hrUsernames, player.Name)  -- Add HR username to the table
+                        break
+                    end
+                end
+            end
+        end
+        local hrUsernamesStr = table.concat(hrUsernames, ", ")  -- Concatenate usernames into a string
+        if hrCount > 3 then
+            sendNotification("HR COUNT", "There are currently " .. hrCount .. " HR's in-game:\n" .. hrUsernamesStr)
+        else
+            sendNotification("HR COUNT", "There are currently " .. hrCount .. " HR's in-game:\n" .. hrUsernamesStr)
+        end
+        print("HR scan completed")
+    end    
+})
+
+local Button = Tab:CreateButton({
+    Name = "Scan for MR's!",
+    Callback = function()
+        local mrCount = countPlayersByRank(mrRankNames)
+        local mrUsernames = {}  -- Table to store MR usernames
+        for _, player in ipairs(game.Players:GetPlayers()) do
+            local success, rank = pcall(function()
+                return player:GetRoleInGroup(groupId)
+            end)
+            if success then
+                for _, rankName in ipairs(mrRankNames) do
+                    if rankName == rank then
+                        table.insert(mrUsernames, player.Name)  -- Add MR username to the table
+                        break
+                    end
+                end
+            end
+        end
+        local mrUsernamesStr = table.concat(mrUsernames, ", ")  -- Concatenate usernames into a string
+        if mrCount > 3 then
+            sendNotification("MR COUNT", "There are currently " .. mrCount .. " MR's in-game:\n" .. mrUsernamesStr)
+        else
+            sendNotification("MR COUNT", "There are currently " .. mrCount .. " MR's in-game:\n" .. mrUsernamesStr)
+        end
+        print("MR scan completed")
+    end    
 })
 
 local isSpamming = false
@@ -203,20 +205,20 @@ backpack = game:GetService("Players").LocalPlayer.Backpack
 local Button = Tab:CreateButton({
     Name = "Btools",
     Callback = function()
-            hammer = Instance.new("HopperBin")
-hammer.Name = "Hammer"
-hammer.BinType = 4
-hammer.Parent = backpack
+        hammer = Instance.new("HopperBin")
+        hammer.Name = "Hammer"
+        hammer.BinType = 4
+        hammer.Parent = backpack
 
-cloneTool = Instance.new("HopperBin")
-cloneTool.Name = "Clone"
-cloneTool.BinType = 3
-cloneTool.Parent = backpack
+        cloneTool = Instance.new("HopperBin")
+        cloneTool.Name = "Clone"
+        cloneTool.BinType = 3
+        cloneTool.Parent = backpack
 
-grabTool = Instance.new("HopperBin")
-grabTool.Name = "Grab"
-grabTool.BinType = 2
-grabTool.Parent = backpack
+        grabTool = Instance.new("HopperBin")
+        grabTool.Name = "Grab"
+        grabTool.BinType = 2
+        grabTool.Parent = backpack
     end    
 })
 
@@ -246,132 +248,14 @@ local Section = Tab:CreateSection("Teleporters")
 local Button = Tab:CreateButton({
     Name = "Spawn",
     Callback = function()
-		local targetPosition = Vector3.new(-106, 4, 99)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+        local targetPosition = Vector3.new(-106, 4, 99)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
     end    
 })
 
-local Button = Tab:CreateButton({
-    Name = "Middle Area",
-    Callback = function()
-		local targetPosition = Vector3.new(351, 4, 100)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
-})
+-- Create other teleport buttons as needed
 
-local Button = Tab:CreateButton({
-    Name = "Cafe",
-    Callback = function()
-		local targetPosition = Vector3.new(463, 4, 206)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
-})
-
-local Button = Tab:CreateButton({
-    Name = "Gas Station",
-    Callback = function()
-		local targetPosition = Vector3.new(494, 3, -181)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
-})
-
-local Button = Tab:CreateButton({
-    Name = "Headquarters",
-    Callback = function()
-		local targetPosition = Vector3.new(-46, 4, -201)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
-})
-
-local Button = Tab:CreateButton({
-    Name = "Prison Outdoor",
-    Callback = function()
-		local targetPosition = Vector3.new(257, 3, -504)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
-})
-
-local Button = Tab:CreateButton({
-    Name = "Prison Indoor",
-    Callback = function()
-		local targetPosition = Vector3.new(267, 4, -570)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
-})
-
-local Button = Tab:CreateButton({
-    Name = "Raceway",
-    Callback = function()
-		local targetPosition = Vector3.new(449, 27, 470)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
-})
-
-local Button = Tab:CreateButton({
-    Name = "Staff Spawn",
-    Callback = function()
-		local targetPosition = Vector3.new(294, 4, -192)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
-})
-
-local Tab = Window:CreateTab("Training Teleporters", 4483362458) -- Title, Image
-
-local Section = Tab:CreateSection("Training Teleporters")
-
-local Button = Tab:CreateButton({
-    Name = "Group A",
-    Callback = function()
-		local targetPosition = Vector3.new(-473, 4, -315)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
-})
-
-local Button = Tab:CreateButton({
-    Name = "Group B",
-    Callback = function()
-		local targetPosition = Vector3.new(-565, 4, -313)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
-})
-
-local Button = Tab:CreateButton({
-    Name = "Group C",
-    Callback = function()
-		local targetPosition = Vector3.new(-657, 4, -314)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
-})
-
-local Button = Tab:CreateButton({
-    Name = "Group D",
-    Callback = function()
-		local targetPosition = Vector3.new(-473, 4, -418)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
-})
-
-local Button = Tab:CreateButton({
-    Name = "Group E",
-    Callback = function()
-		local targetPosition = Vector3.new(-564, 4, -420)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
-})
-
-local Button = Tab:CreateButton({
-    Name = "Group F",
-    Callback = function()
-		local targetPosition = Vector3.new(-656, 4, -419)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
-})
-
-local Tab = Window:CreateTab("Vehicle", 4483362458) -- Title, Image
-
-local Section = Tab:CreateSection("Vehicle Modifications")
-
-local Paragraph = Tab:CreateParagraph({Title = "Coming Soon...", Content = "Will hopefully be ready by 6/26"})
+-- Additional tabs, sections, buttons, etc. can be added here as needed
 
 local Tab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 
@@ -384,7 +268,13 @@ local Paragraph = Tab:CreateParagraph({Title = "CREDIT", Content = "Credit to @p
 local Button = Tab:CreateButton({
     Name = "Raid Meetup (if neded)",
     Callback = function()
-		local targetPosition = Vector3.new(799, 3, -590)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+        local targetPosition = Vector3.new(799, 3, -590)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition)
     end    
 })
+
+-- Notify HR count when you join
+local hrCount = countPlayersByRank(hrRankNames)
+sendNotification("HR COUNT", "There are currently " .. hrCount .. " HR's in-game.")
+
+sendNotification("NOTIFICATION", "Sorry that the UI loaded slow.")
