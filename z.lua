@@ -184,10 +184,14 @@ local spamming = false
 function StartSpamming()
     spamming = true
     print("Spamming started")
-    while spamming do
-        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
-        wait(1)
-    end
+    spawn(function()
+        while spamming do
+            game:GetService("StarterGui"):SetCore("ChatMakeSystemMessage", {
+                Text = ". g g / washieztroll";
+            })
+            wait(1)
+        end
+    end)
 end
 
 -- Function to stop spamming
@@ -212,6 +216,7 @@ local Toggle = Tab:CreateToggle({
         end
     end,
 })
+
 
 
 local Tab = Window:CreateTab("Teleporters", 4483362458) -- Title, Image
