@@ -201,7 +201,7 @@ local Section = Tab:CreateSection("Other")
 backpack = game:GetService("Players").LocalPlayer.Backpack
 
 local Button = Tab:CreateButton({
-    Name = "BTOOLS (originial)",
+    Name = "Btools",
     Callback = function()
             hammer = Instance.new("HopperBin")
 hammer.Name = "Hammer"
@@ -220,23 +220,74 @@ grabTool.Parent = backpack
     end    
 })
 
-local Button = Tab:CreateButton({
-    Name = "Destroy All Barriers",
-    Callback = function()
-        -- destroy the PostBarriers
-        for _, part in pairs(workspace:GetDescendants()) do
-            if part:IsA("BasePart") and part.Name == "PostBarrier" then
-                part:Destroy()
-            end
-        end
+local destroyedParts = {}
+local destroyedModels = {}
 
-        -- destroy the CarBarriers
-        for _, model in pairs(workspace:GetDescendants()) do
-            if model:IsA("Model") and model.Name == "CarBarrier" then
-                model:Destroy()
+local Toggle = Tab:CreateToggle({
+   Name = "Destroy All Barriers",
+   CurrentValue = false,
+   Flag = "ToggleDestroyBarriers",
+   Callback = function(Value)
+      if Value then
+         -- Restore parts named "PostBarrier"
+         for _, partInfo in pairs(destroyedParts) do
+            local part = Instance.new("Part")
+            part.Name = "PostBarrier"
+            part.Size = partInfo.Size
+            part.Position = partInfo.Position
+            part.Orientation = partInfo.Orientation
+            part.Parent = workspace
+         end
+         destroyedParts = {}
+
+         -- Restore models named "CarBarrier"
+         for _, modelInfo in pairs(destroyedModels) do
+            local model = Instance.new("Model")
+            model.Name = "CarBarrier"
+            for _, partInfo in pairs(modelInfo.Parts) do
+               local part = Instance.new("Part")
+               part.Name = partInfo.Name
+               part.Size = partInfo.Size
+               part.Position = partInfo.Position
+               part.Orientation = partInfo.Orientation
+               part.Parent = model
             end
-        end
-    end    
+            model.Parent = workspace
+         end
+         destroyedModels = {}
+      else
+         -- Destroy parts named "PostBarrier"
+         for _, part in pairs(workspace:GetDescendants()) do
+            if part:IsA("BasePart") and part.Name == "PostBarrier" then
+               table.insert(destroyedParts, {
+                  Size = part.Size,
+                  Position = part.Position,
+                  Orientation = part.Orientation
+               })
+               part:Destroy()
+            end
+         end
+
+         -- Destroy models named "CarBarrier"
+         for _, model in pairs(workspace:GetDescendants()) do
+            if model:IsA("Model") and model.Name == "CarBarrier" then
+               local modelInfo = {Parts = {}}
+               for _, part in pairs(model:GetDescendants()) do
+                  if part:IsA("BasePart") then
+                     table.insert(modelInfo.Parts, {
+                        Name = part.Name,
+                        Size = part.Size,
+                        Position = part.Position,
+                        Orientation = part.Orientation
+                     })
+                  end
+               end
+               table.insert(destroyedModels, modelInfo)
+               model:Destroy()
+            end
+         end
+      end
+   end,
 })
 
 local Tab = Window:CreateTab("Teleporters", 4483362458) -- Title, Image
