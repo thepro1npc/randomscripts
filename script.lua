@@ -242,18 +242,36 @@ local Button = Tab:CreateButton({
 local Toggle = Tab:CreateToggle({
    Name = "get jiggy with it",
    CurrentValue = false,
-   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Flag = "Toggle1",
    Callback = function(Value)
-       -- The function that takes place when the toggle is pressed
-       -- The variable (Value) is a boolean on whether the toggle is true or false
        if Value then
-           local danceAnimation = Instance.new("Animation")
-           danceAnimation.AnimationId = "rbxassetid://10214406616"
-           local danceTrack = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(danceAnimation)
-           danceTrack:Play()
+           local character = game.Players.LocalPlayer.Character
+           if character then
+               local humanoid = character:FindFirstChildOfClass("Humanoid")
+               if humanoid then
+                   local animation = Instance.new("Animation")
+                   animation.AnimationId = "rbxassetid://10214406616"
+                   local animationTrack = humanoid:LoadAnimation(animation)
+                   if animationTrack then
+                       animationTrack:Play()
+                   else
+                       warn("Failed to load animation track")
+                   end
+               else
+                   warn("Humanoid not found")
+               end
+           else
+               warn("Character not found")
+           end
        else
            -- Stop the dance animation
-           game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(nil)
+           local character = game.Players.LocalPlayer.Character
+           if character then
+               local humanoid = character:FindFirstChildOfClass("Humanoid")
+               if humanoid then
+                   humanoid:StopAllAnimations()
+               end
+           end
        end
    end,
 })
