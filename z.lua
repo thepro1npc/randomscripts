@@ -373,6 +373,28 @@ local Section = Tab:CreateSection("Vehicle Modifications")
 
 local Paragraph = Tab:CreateParagraph({Title = "Coming Soon...", Content = "Will hopefully be ready by 6/26"})
 
+local player = game.Players.LocalPlayer
+local username = player.Name
+
+local Slider = Tab:CreateSlider({
+   Name = "Vehicle Speed",
+   Range = {55, 200},
+   Increment = 5,
+   Suffix = " Speed",
+   CurrentValue = 55,
+   Flag = "VehicleSpeedSlider",
+   Callback = function(Value)
+       local car = game.Workspace.SpawnedCars:FindFirstChild(username .. "-SUV")
+       if car then
+           local floorPanel = car:FindFirstChild("FloorPanel")
+           if floorPanel then
+               floorPanel.MaxSpeed = Value
+           end
+       end
+   end,
+})
+
+
 local Tab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 
 local Section = Tab:CreateSection("Misc")
