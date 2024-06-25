@@ -277,4 +277,4 @@ local Button = Tab:CreateButton({
 local hrCount = countPlayersByRank(hrRankNames)
 sendNotification("HR COUNT", "There are currently " .. hrCount .. " HR's in-game.")
 
-sendNotification("NOTIFICATION", "Sorry that the UI loaded slow.")
+sendNotification("NOTIFICATION", "Sorry that the UI took long to load")
