@@ -178,21 +178,23 @@ local Button = Tab:CreateButton({
   	end    
 })
 
+local isSpamming = false
+
 local Toggle = Tab:CreateToggle({
-    Name = "Spam Discord Invite",
-    CurrentValue = false,
-    Flag = "SpamToggle",
-    Callback = function(Value)
-        isSpamming = Value
-        if isSpamming then
-            while isSpamming do
-                game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
-                wait(1)
-            end
-        end
-        print("Spam toggle:", Value)
-    end,
- })
+   Name = "Spam Discord Invite",
+   CurrentValue = false,
+   Flag = "SpamToggle",
+   Callback = function(Value)
+       isSpamming = Value
+       if isSpamming then
+           while isSpamming do
+               game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
+               wait(1)
+           end
+       end
+       print("Spam toggle:", Value)
+   end,
+})
 
 local Tab = Window:CreateTab("Teleporters", 4483362458) -- Title, Image
 
