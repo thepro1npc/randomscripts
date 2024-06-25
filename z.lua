@@ -177,46 +177,24 @@ local Button = Tab:CreateButton({
   		print("MR scan completed")
   	end    
 })
---------------------------------------------------------------------------------------------------------------------------------
-local spamming = false
 
--- Function to start spamming
-function StartSpamming()
-    spamming = true
-    print("Spamming started")
-    spawn(function()
-        while spamming do
-            local player = game.Players.LocalPlayer
-            game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
-            wait(1)
-        end
-    end)
-end
-
--- Function to stop spamming
-function StopSpamming()
-    spamming = false
-    print("Spamming stopped")
-end
-
--- Create the toggle
+local isSpamming = false
 local Toggle = Tab:CreateToggle({
-    Name = "Toggle Example",
+    Name = "Spam Discord Invite",
     CurrentValue = false,
-    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Flag = "SpamToggle",
     Callback = function(Value)
-        -- The function that takes place when the toggle is pressed
-        -- The variable (Value) is a boolean on whether the toggle is true or false
-        print("Toggle value: ", Value)
-        if Value then
-            StartSpamming()
-        else
-            StopSpamming()
+        isSpamming = Value
+        if isSpamming then
+            spawn(function()
+                while isSpamming do
+                    wait(1) -- Wait for 1 second
+                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
+                end
+            end)
         end
-    end,
+    end
 })
-
-
 
 
 local Tab = Window:CreateTab("Teleporters", 4483362458) -- Title, Image
