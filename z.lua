@@ -186,9 +186,8 @@ function StartSpamming()
     print("Spamming started")
     spawn(function()
         while spamming do
-            game:GetService("StarterGui"):SetCore("ChatMakeSystemMessage", {
-                Text = ". g g / washieztroll";
-            })
+            local player = game.Players.LocalPlayer
+            game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
             wait(1)
         end
     end)
@@ -216,6 +215,7 @@ local Toggle = Tab:CreateToggle({
         end
     end,
 })
+
 
 
 
