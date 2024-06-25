@@ -13,7 +13,7 @@ local Window = Rayfield:CreateWindow({
        Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
        RememberJoins = true -- Set this to false to make them join the discord every time they load it up
     },
-    KeySystem = true, -- Set this to true to use our key system
+    KeySystem = false, -- Set this to true to use our key system
     KeySettings = {
        Title = "TEST TITLE",
        Subtitle = "Key System",
@@ -185,8 +185,8 @@ local Toggle = Tab:CreateToggle({
     Callback = function(Value)
         if Value then
             while true do
+                game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
                 wait(1)
-                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
             end
         end
     end
