@@ -239,7 +239,7 @@ local Button = Tab:CreateButton({
     end    
 })
 
-local Tab = Window:CreateTab("Teleporters", 4483362458) -- Title, Image
+local Tab = Window:CreateTab("Teleport", 4483362458) -- Title, Image
 
 local Section = Tab:CreateSection("Teleporters")
 
@@ -315,7 +315,7 @@ local Button = Tab:CreateButton({
     end    
 })
 
-local Tab = Window:CreateTab("Training Teleporters", 4483362458) -- Title, Image
+local Tab = Window:CreateTab("Training", 4483362458) -- Title, Image
 
 local Section = Tab:CreateSection("Training Teleporters")
 
@@ -371,7 +371,7 @@ local Tab = Window:CreateTab("Vehicle", 4483362458) -- Title, Image
 
 local Section = Tab:CreateSection("Vehicle Modifications")
 
-local Paragraph = Tab:CreateParagraph({Title = "Coming Soon...", Content = "Coming Soon..."})
+local Paragraph = Tab:CreateParagraph({Title = "Coming Soon...", Content = "Will hopefully be ready by 6/26"})
 
 local Tab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 
