@@ -1,14 +1,28 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "MADE BY npc", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
-
-local Tab = Window:MakeTab({
-	Name = "Main Page",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-local Section = Tab:AddSection({
-	Name = "Main Page"
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Window = Rayfield:CreateWindow({
+    Name = "MADE BY npc",
+    LoadingTitle = "My Custom Script",
+    LoadingSubtitle = "Made By npc",
+    ConfigurationSaving = {
+       Enabled = true,
+       FolderName = nil, -- Create a custom folder for your hub/game
+       FileName = "Big Hub"
+    },
+    Discord = {
+       Enabled = false,
+       Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+       RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+    },
+    KeySystem = false, -- Set this to true to use our key system
+    KeySettings = {
+       Title = "TEST TITLE",
+       Subtitle = "Key System",
+       Note = "No method of obtaining the key is provided",
+       FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+       SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+       Key = {"test"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+    }
 })
 
 local groupId = 10261023
@@ -66,54 +80,49 @@ end
 -- Notify that the script is working
 sendNotification("NOTIFICATION", "Scanner is WORKING")
 
--- Check existing players
-for _, player in ipairs(game.Players:GetPlayers()) do
-    checkAndNotifyHR(player)
-end
-
 -- Listen for new players joining
 game.Players.PlayerAdded:Connect(checkAndNotifyHR)
 
 local function flingAll()
     for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
-        task.wait(0.1)
+        task.wait(0.2)
     end
 end
 
-Section:AddButton({
-	Name = "Fling All",
-	Callback = function()
-		flingAll()
-  		print("button pressed")
-  	end    
-})
+ local Tab = Window:CreateTab("Main Page", 4483362458) -- Title, Image
 
-Section:AddButton({
-	Name = "Fling GUI",
-	Callback = function()
+ local Section = Tab:CreateSection("Main Page")
+
+ local Button = Tab:CreateButton({
+    Name = "Fling Users in Cars",
+    Callback = function()
+        flingAll()
+    end,
+ })
+
+ local Button = Tab:CreateButton({
+    Name = "Fling GUI",
+    Callback = function ()
 		loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'), true))()
-  		print("Fling GUI script loaded")
-  	end    
-})
+    end,
+ })
 
-Section:AddButton({
-	Name = "Infinite Yield",
-	Callback = function()
+ local Button = Tab:CreateButton({
+    Name = "Infinite Yield",
+    Callback = function ()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-  		print("Infinite Yield script loaded")
-  	end    
-})
+    end,
+ })
 
-Section:AddButton({
-	Name = "Open Any Door (client-sided)",
-	Callback = function()
+ local Button = Tab:CreateButton({
+    Name = "Open Any Door (client-sided)",
+    Callback = function ()
 		game.Players.LocalPlayer.GroupInfo.Rank.Value = 255
-  		print("Group rank set to 255")
-  	end    
-})
+    end,
+ })
 
-Section:AddButton({
+ local Button = Tab:CreateButton({
 	Name = "Scan for HR's!",
 	Callback = function()
 		local hrCount = countPlayersByRank(hrRankNames)
@@ -141,7 +150,7 @@ Section:AddButton({
   	end    
 })
 
-Section:AddButton({
+local Button = Tab:CreateButton({
 	Name = "Scan for MR's!",
 	Callback = function()
 		local mrCount = countPlayersByRank(mrRankNames)
@@ -170,31 +179,71 @@ Section:AddButton({
 })
 
 local isSpamming = false
-
-Section:AddToggle({
-	Name = "Spam Discord Invite",
-	Default = false,
-	Callback = function(Value)
-		isSpamming = Value
-		while isSpamming do
-			game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
-			wait(1)
-		end
-		print("Spam toggle:", Value)
-	end    
+local Toggle = Tab:CreateToggle({
+    Name = "Spam Discord Invite",
+    CurrentValue = false,
+    Flag = "SpamToggle",
+    Callback = function(Value)
+        isSpamming = Value
+        if isSpamming then
+            spawn(function()
+                while isSpamming do
+                    wait(1) -- Wait for 1 second
+                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
+                end
+            end)
+        end
+    end
 })
 
-local Tab = Window:MakeTab({
-	Name = "Teleporters",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
+local Section = Tab:CreateSection("Other")
+
+backpack = game:GetService("Players").LocalPlayer.Backpack
+
+local Button = Tab:CreateButton({
+    Name = "Btools",
+    Callback = function()
+            hammer = Instance.new("HopperBin")
+hammer.Name = "Hammer"
+hammer.BinType = 4
+hammer.Parent = backpack
+
+cloneTool = Instance.new("HopperBin")
+cloneTool.Name = "Clone"
+cloneTool.BinType = 3
+cloneTool.Parent = backpack
+
+grabTool = Instance.new("HopperBin")
+grabTool.Name = "Grab"
+grabTool.BinType = 2
+grabTool.Parent = backpack
+    end    
 })
 
-local Section = Tab:AddSection({
-	Name = "Teleporters"
+local Button = Tab:CreateButton({
+    Name = "Destroy Barriers",
+    Callback = function()
+        -- Destroy parts named "PostBarrier"
+        for _, part in pairs(workspace:GetDescendants()) do
+            if part:IsA("BasePart") and part.Name == "PostBarrier" then
+                part:Destroy()
+            end
+        end
+
+        -- Destroy models named "CarBarrier"
+        for _, model in pairs(workspace:GetDescendants()) do
+            if model:IsA("Model") and model.Name == "CarBarrier" then
+                model:Destroy()
+            end
+        end
+    end    
 })
 
-Section:AddButton({
+local Tab = Window:CreateTab("Teleporters", 4483362458) -- Title, Image
+
+local Section = Tab:CreateSection("Teleporters")
+
+local Button = Tab:CreateButton({
     Name = "Spawn",
     Callback = function()
 		local targetPosition = Vector3.new(-106, 4, 99)
@@ -202,7 +251,7 @@ Section:AddButton({
     end    
 })
 
-Section:AddButton({
+local Button = Tab:CreateButton({
     Name = "Middle Area",
     Callback = function()
 		local targetPosition = Vector3.new(351, 4, 100)
@@ -210,7 +259,7 @@ Section:AddButton({
     end    
 })
 
-Section:AddButton({
+local Button = Tab:CreateButton({
     Name = "Cafe",
     Callback = function()
 		local targetPosition = Vector3.new(463, 4, 206)
@@ -218,7 +267,7 @@ Section:AddButton({
     end    
 })
 
-Section:AddButton({
+local Button = Tab:CreateButton({
     Name = "Gas Station",
     Callback = function()
 		local targetPosition = Vector3.new(494, 3, -181)
@@ -226,7 +275,7 @@ Section:AddButton({
     end    
 })
 
-Section:AddButton({
+local Button = Tab:CreateButton({
     Name = "Headquarters",
     Callback = function()
 		local targetPosition = Vector3.new(-46, 4, -201)
@@ -234,7 +283,7 @@ Section:AddButton({
     end    
 })
 
-Section:AddButton({
+local Button = Tab:CreateButton({
     Name = "Prison Outdoor",
     Callback = function()
 		local targetPosition = Vector3.new(257, 3, -504)
@@ -242,7 +291,7 @@ Section:AddButton({
     end    
 })
 
-Section:AddButton({
+local Button = Tab:CreateButton({
     Name = "Prison Indoor",
     Callback = function()
 		local targetPosition = Vector3.new(267, 4, -570)
@@ -250,7 +299,7 @@ Section:AddButton({
     end    
 })
 
-Section:AddButton({
+local Button = Tab:CreateButton({
     Name = "Raceway",
     Callback = function()
 		local targetPosition = Vector3.new(449, 27, 470)
@@ -258,7 +307,7 @@ Section:AddButton({
     end    
 })
 
-Section:AddButton({
+local Button = Tab:CreateButton({
     Name = "Staff Spawn",
     Callback = function()
 		local targetPosition = Vector3.new(294, 4, -192)
@@ -266,17 +315,11 @@ Section:AddButton({
     end    
 })
 
-local Tab = Window:MakeTab({
-	Name = "Training Teleporters",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
+local Tab = Window:CreateTab("Training Teleporters", 4483362458) -- Title, Image
 
-local Section = Tab:AddSection({
-	Name = "Training Teleporters"
-})
+local Section = Tab:CreateSection("Training Teleporters")
 
-Section:AddButton({
+local Button = Tab:CreateButton({
     Name = "Group A",
     Callback = function()
 		local targetPosition = Vector3.new(-473, 4, -315)
@@ -284,7 +327,7 @@ Section:AddButton({
     end    
 })
 
-Section:AddButton({
+local Button = Tab:CreateButton({
     Name = "Group B",
     Callback = function()
 		local targetPosition = Vector3.new(-565, 4, -313)
@@ -292,7 +335,7 @@ Section:AddButton({
     end    
 })
 
-Section:AddButton({
+local Button = Tab:CreateButton({
     Name = "Group C",
     Callback = function()
 		local targetPosition = Vector3.new(-657, 4, -314)
@@ -300,7 +343,7 @@ Section:AddButton({
     end    
 })
 
-Section:AddButton({
+local Button = Tab:CreateButton({
     Name = "Group D",
     Callback = function()
 		local targetPosition = Vector3.new(-473, 4, -418)
@@ -308,7 +351,7 @@ Section:AddButton({
     end    
 })
 
-Section:AddButton({
+local Button = Tab:CreateButton({
     Name = "Group E",
     Callback = function()
 		local targetPosition = Vector3.new(-564, 4, -420)
@@ -316,7 +359,7 @@ Section:AddButton({
     end    
 })
 
-Section:AddButton({
+local Button = Tab:CreateButton({
     Name = "Group F",
     Callback = function()
 		local targetPosition = Vector3.new(-656, 4, -419)
@@ -324,23 +367,21 @@ Section:AddButton({
     end    
 })
 
-local Tab = Window:MakeTab({
-	Name = "Misc",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
+local Tab = Window:CreateTab("Vehicle", 4483362458) -- Title, Image
 
-local Section = Tab:AddSection({
-	Name = "Misc"
-})
+local Section = Tab:CreateSection("Vehicle Modifications")
 
-Tab:AddParagraph("VERSION","1.2")
+local Paragraph = Tab:CreateParagraph({Title = "Coming Soon...", Content = "Will hopefully be ready by 6/26"})
 
-Tab:AddParagraph("DISCORD","discord.gg/washieztroll")
+local Tab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 
-Tab:AddParagraph("CREDIT","Credit to @patriotic_american on Discord!")
+local Section = Tab:CreateSection("Misc")
 
-Section:AddButton({
+local Paragraph = Tab:CreateParagraph({Title = "DISCORD", Content = "discord.gg/washieztroll"})
+
+local Paragraph = Tab:CreateParagraph({Title = "CREDIT", Content = "Credit to @patriotic_american on Discord!"})
+
+local Button = Tab:CreateButton({
     Name = "Raid Meetup (if neded)",
     Callback = function()
 		local targetPosition = Vector3.new(799, 3, -590)
