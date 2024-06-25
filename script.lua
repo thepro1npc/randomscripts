@@ -239,43 +239,6 @@ local Button = Tab:CreateButton({
     end    
 })
 
-local Toggle = Tab:CreateToggle({
-   Name = "get jiggy with it",
-   CurrentValue = false,
-   Flag = "Toggle1",
-   Callback = function(Value)
-       if Value then
-           local character = game.Players.LocalPlayer.Character
-           if character then
-               local humanoid = character:FindFirstChildOfClass("Humanoid")
-               if humanoid then
-                   local animation = Instance.new("Animation")
-                   animation.AnimationId = "rbxassetid://10214406616"
-                   local animationTrack = humanoid:LoadAnimation(animation)
-                   if animationTrack then
-                       animationTrack:Play()
-                   else
-                       warn("Failed to load animation track")
-                   end
-               else
-                   warn("Humanoid not found")
-               end
-           else
-               warn("Character not found")
-           end
-       else
-           -- Stop the dance animation
-           local character = game.Players.LocalPlayer.Character
-           if character then
-               local humanoid = character:FindFirstChildOfClass("Humanoid")
-               if humanoid then
-                   humanoid:StopAllAnimations()
-               end
-           end
-       end
-   end,
-})
-
 local Tab = Window:CreateTab("Teleport", 4483362458) -- Title, Image
 
 local Section = Tab:CreateSection("Teleporters")
