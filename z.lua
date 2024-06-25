@@ -185,9 +185,9 @@ local Toggle = Tab:CreateToggle({
    Callback = function(Value)
        while Value do
            wait(1) -- Wait for 1 second
-           game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
+           game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
        end
-   end,
+   end
 })
 
 local Tab = Window:CreateTab("Teleporters", 4483362458) -- Title, Image
