@@ -196,6 +196,48 @@ local Toggle = Tab:CreateToggle({
     end
 })
 
+local Section = Tab:CreateSection("Other")
+
+backpack = game:GetService("Players").LocalPlayer.Backpack
+
+local Button = Tab:CreateButton({
+    Name = "BTOOLS (originial)",
+    Callback = function()
+            hammer = Instance.new("HopperBin")
+hammer.Name = "Hammer"
+hammer.BinType = 4
+hammer.Parent = backpack
+
+cloneTool = Instance.new("HopperBin")
+cloneTool.Name = "Clone"
+cloneTool.BinType = 3
+cloneTool.Parent = backpack
+
+grabTool = Instance.new("HopperBin")
+grabTool.Name = "Grab"
+grabTool.BinType = 2
+grabTool.Parent = backpack
+    end    
+})
+
+local Button = Tab:CreateButton({
+    Name = "Destroy All Barriers",
+    Callback = function()
+        -- destroy the PostBarriers
+        for _, part in pairs(workspace:GetDescendants()) do
+            if part:IsA("BasePart") and part.Name == "PostBarrier" then
+                part:Destroy()
+            end
+        end
+
+        -- destroy the CarBarriers
+        for _, model in pairs(workspace:GetDescendants()) do
+            if model:IsA("Model") and model.Name == "CarBarrier" then
+                model:Destroy()
+            end
+        end
+    end    
+})
 
 local Tab = Window:CreateTab("Teleporters", 4483362458) -- Title, Image
 
@@ -328,8 +370,6 @@ local Button = Tab:CreateButton({
 local Tab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 
 local Section = Tab:CreateSection("Misc")
-
-local Paragraph = Tab:CreateParagraph({Title = "VERSION", Content = "BROSKI"})
 
 local Paragraph = Tab:CreateParagraph({Title = "DISCORD", Content = "discord.gg/washieztroll"})
 
