@@ -239,6 +239,22 @@ local Button = Tab:CreateButton({
     end    
 })
 
+local Toggle = Tab:CreateToggle({
+   Name = "get jiggy with it",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+       -- The function that takes place when the toggle is pressed
+       -- The variable (Value) is a boolean on whether the toggle is true or false
+       if Value then
+           game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Instance.new("Animation", game.Players.LocalPlayer.Character)).AnimationId = "rbxassetid://10214406616"
+           game.Players.LocalPlayer.Character.Humanoid:PlayAnimation(game.Players.LocalPlayer.Character.Animations.Animation1)
+       else
+           game.Players.LocalPlayer.Character.Animations.Animation1:Stop()
+       end
+   end,
+})
+
 local Tab = Window:CreateTab("Teleport", 4483362458) -- Title, Image
 
 local Section = Tab:CreateSection("Teleporters")
