@@ -179,6 +179,7 @@ local Button = Tab:CreateButton({
 })
 
 local spamming = false
+local RunService = game:GetService("RunService")
 
 -- Function to start spamming
 function StartSpamming()
