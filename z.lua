@@ -181,7 +181,6 @@ local Button = Tab:CreateButton({
 local Toggle = Tab:CreateToggle({
     Name = "Spam Chat",
     CurrentValue = false,
-    Flag = "SpamToggle",
     Callback = function(Value)
         if Value then
             while true do
