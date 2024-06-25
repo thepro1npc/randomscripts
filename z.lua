@@ -177,24 +177,23 @@ local Button = Tab:CreateButton({
   		print("MR scan completed")
   	end    
 })
-
+--------------------------------------------------------------------------------------------------------------------------------
 local spamming = false
-local RunService = game:GetService("RunService")
 
 -- Function to start spamming
 function StartSpamming()
     spamming = true
-    spawn(function()
-        while spamming do
-            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
-            wait(1)
-        end
-    end)
+    print("Spamming started")
+    while spamming do
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
+        wait(1)
+    end
 end
 
 -- Function to stop spamming
 function StopSpamming()
     spamming = false
+    print("Spamming stopped")
 end
 
 -- Create the toggle
@@ -205,6 +204,7 @@ local Toggle = Tab:CreateToggle({
     Callback = function(Value)
         -- The function that takes place when the toggle is pressed
         -- The variable (Value) is a boolean on whether the toggle is true or false
+        print("Toggle value: ", Value)
         if Value then
             StartSpamming()
         else
