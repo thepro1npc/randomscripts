@@ -247,10 +247,13 @@ local Toggle = Tab:CreateToggle({
        -- The function that takes place when the toggle is pressed
        -- The variable (Value) is a boolean on whether the toggle is true or false
        if Value then
-           game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Instance.new("Animation", game.Players.LocalPlayer.Character)).AnimationId = "rbxassetid://10214406616"
-           game.Players.LocalPlayer.Character.Humanoid:PlayAnimation(game.Players.LocalPlayer.Character.Animations.Animation1)
+           local danceAnimation = Instance.new("Animation")
+           danceAnimation.AnimationId = "rbxassetid://10214406616"
+           local danceTrack = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(danceAnimation)
+           danceTrack:Play()
        else
-           game.Players.LocalPlayer.Character.Animations.Animation1:Stop()
+           -- Stop the dance animation
+           game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(nil)
        end
    end,
 })
