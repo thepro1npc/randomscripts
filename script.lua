@@ -189,7 +189,7 @@ local Toggle = Tab:CreateToggle({
             spawn(function()
                 while isSpamming do
                     wait(1) -- Wait for 1 second
-                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll", "All")
+                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / wahieztroll . g g / wahieztroll . g g / wahieztroll . g g / wahieztroll . g g / wahieztroll . g g / wahieztroll . g g / wahieztroll . g g / wahieztroll . g g / wahieztroll . g g / wahieztroll", "All")
                 end
             end)
         end
@@ -203,7 +203,7 @@ backpack = game:GetService("Players").LocalPlayer.Backpack
 local Button = Tab:CreateButton({
     Name = "Btools",
     Callback = function()
-            hammer = Instance.new("HopperBin")
+hammer = Instance.new("HopperBin")
 hammer.Name = "Hammer"
 hammer.BinType = 4
 hammer.Parent = backpack
@@ -369,154 +369,138 @@ local Button = Tab:CreateButton({
 
 local Tab = Window:CreateTab("Vehicle", 4483362458) -- Title, Image
 
-local Section = Tab:CreateSection("Vehicle Modifications")
+local Section = Tab:CreateSection("Vehicle Modifications (tesla drunk driving moment)")
 
 local Section = Tab:CreateSection("Credit to mye_real on discord")
 local Dropdown = Tab:CreateDropdown({
-        Name = "Car Choice (only SUV for now)",
-        Options = {"SUV"},
-        CurrentOption = {"SUV"},
-        MultipleOptions = false,
-        Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-        Callback = function(Option)
+    Name = "Car Choice (only SUV for now)",
+    Options = {"SUV"},
+    CurrentOption = {"SUV"},
+    MultipleOptions = false,
+    Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Option)
 _G.CarChoice = Option
-        end,
-     })
-     local Slider = Tab:CreateSlider({
-        Name = "MaxSpeed",
-        Range = {0, 250},
-        Increment = 1,
-        Suffix = "Speeds",
-        CurrentValue = 60,
-        Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-        Callback = function(Value)
+    end,
+ })
+ local Slider = Tab:CreateSlider({
+    Name = "MaxSpeed",
+    Range = {0, 250},
+    Increment = 1,
+    Suffix = "Speeds",
+    CurrentValue = 60,
+    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
 
-                for i,v in game.Workspace.SpawnedCars:GetChildren() do
-                        v:SetAttribute("MaxSpeed", Value)
-                        print("MaxSpeed value set to: "..Value)
+            for i,v in game.Workspace.SpawnedCars:GetChildren() do
+                    v:SetAttribute("MaxSpeed", Value)
+                    print("MaxSpeed value set to: "..Value)
 end
-        end,
-     })
-     local Slider = Tab:CreateSlider({
-        Name = "ReverseSpeed",
-        Range = {0, 250},
-        Increment = 1,
-        Suffix = "Speeds",
-        CurrentValue = 60,
-        Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-        Callback = function(Value)
+    end,
+ })
+ local Slider = Tab:CreateSlider({
+    Name = "ReverseSpeed",
+    Range = {0, 250},
+    Increment = 1,
+    Suffix = "Speeds",
+    CurrentValue = 60,
+    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
 
-                for i,v in game.Workspace.SpawnedCars:GetChildren() do
-                        v:SetAttribute("ReverseSpeed", Value)
-                        print("ReverseSpeed value set to: "..Value)
+            for i,v in game.Workspace.SpawnedCars:GetChildren() do
+                    v:SetAttribute("ReverseSpeed", Value)
+                    print("ReverseSpeed value set to: "..Value)
 end
-        end,
-     })
-     local Slider = Tab:CreateSlider({
-        Name = "DrivingTorque (acceleration)",
-        Range = {15000, 100000},
-        Increment = 2500,
-        Suffix = "Values",
-        CurrentValue = 5000,
-        Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-        Callback = function(Value)
+    end,
+ })
+ local Slider = Tab:CreateSlider({
+    Name = "DrivingTorque (acceleration)",
+    Range = {15000, 100000},
+    Increment = 2500,
+    Suffix = "Values",
+    CurrentValue = 5000,
+    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
 
-                for i,v in game.Workspace.SpawnedCars:GetChildren() do
-                        v:SetAttribute("DrivingTorque", Value)
-                        print("DrivingTorque value set to: "..Value)
+            for i,v in game.Workspace.SpawnedCars:GetChildren() do
+                    v:SetAttribute("DrivingTorque", Value)
+                    print("DrivingTorque value set to: "..Value)
 end
-        end,
-     })
-     local Slider = Tab:CreateSlider({
-        Name = "BrakingTorque (Brake Power)",
-        Range = {30000, 200000},
-        Increment = 5000,
-        Suffix = "Values",
-        CurrentValue = 10000,
-        Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-        Callback = function(Value)
+    end,
+ })
+ local Slider = Tab:CreateSlider({
+    Name = "BrakingTorque (Brake Power)",
+    Range = {30000, 200000},
+    Increment = 5000,
+    Suffix = "Values",
+    CurrentValue = 10000,
+    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
 
-                for i,v in game.Workspace.SpawnedCars:GetChildren() do
-                        v:SetAttribute("BrakingTorque", Value)
-                        print("BrakingTorque value set to: "..Value)
+            for i,v in game.Workspace.SpawnedCars:GetChildren() do
+                    v:SetAttribute("BrakingTorque", Value)
+                    print("BrakingTorque value set to: "..Value)
 end
-        end,
-     })
-     local Slider = Tab:CreateSlider({
-        Name = "MaxSteer (Steer Power)",
-        Range = {0.1, 2},
-        Increment = 0.1,
-        Suffix = "Values",
-        CurrentValue = 0.6,
-        Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-        Callback = function(Value)
+    end,
+ })
+ local Slider = Tab:CreateSlider({
+    Name = "MaxSteer (Steer Power)",
+    Range = {0.1, 2},
+    Increment = 0.1,
+    Suffix = "Values",
+    CurrentValue = 0.6,
+    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
 
-                for i,v in game.Workspace.SpawnedCars:GetChildren() do
-                        v:SetAttribute("MaxSteer", Value)
-                        print("MaxSteer value set to: "..Value)
+            for i,v in game.Workspace.SpawnedCars:GetChildren() do
+                    v:SetAttribute("MaxSteer", Value)
+                    print("MaxSteer value set to: "..Value)
 end
-        end,
-     })
-     local Slider = Tab:CreateSlider({
-        Name = "Fuel (client sided)",
-        Range = {0, 100000},
-        Increment = 5000,
-        Suffix = "Values",
-        CurrentValue = 1000,
-        Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-        Callback = function(Value)
+    end,
+ })
+ local Slider = Tab:CreateSlider({
+    Name = "Fuel (client sided)",
+    Range = {0, 100000},
+    Increment = 5000,
+    Suffix = "Values",
+    CurrentValue = 1000,
+    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
 
-                for i,v in game.Workspace.SpawnedCars:GetChildren() do
-                        v:SetAttribute("Fuel", Value)
-                        print("Fuel value set to: "..Value)
+            for i,v in game.Workspace.SpawnedCars:GetChildren() do
+                    v:SetAttribute("Fuel", Value)
+                    print("Fuel value set to: "..Value)
 end
-        end,
-     })
-     local Slider = Tab:CreateSlider({
-        Name = "WheelFriction (client sided)",
-        Range = {1, 100},
-        Increment = 1,
-        Suffix = "Values",
-        CurrentValue = 2,
-        Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-        Callback = function(Value)
+    end,
+ })
+ local Slider = Tab:CreateSlider({
+    Name = "WheelFriction (client sided)",
+    Range = {1, 100},
+    Increment = 1,
+    Suffix = "Values",
+    CurrentValue = 2,
+    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
 
-                for i,v in game.Workspace.SpawnedCars:GetChildren() do
-                        v:SetAttribute("WheelFriction", Value)
-                        print("WheelFriction value set to: "..Value)
+            for i,v in game.Workspace.SpawnedCars:GetChildren() do
+                    v:SetAttribute("WheelFriction", Value)
+                    print("WheelFriction value set to: "..Value)
 end
-        end,
-     })
-     local Slider = Tab:CreateSlider({
-        Name = "BaseEngineRPM (client sided)",
-        Range = {1500, 10000},
-        Increment = 100,
-        Suffix = "Values",
-        CurrentValue = 1500,
-        Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-        Callback = function(Value)
+    end,
+ })
+ local Slider = Tab:CreateSlider({
+    Name = "BaseEngineRPM (client sided)",
+    Range = {1500, 10000},
+    Increment = 100,
+    Suffix = "Values",
+    CurrentValue = 1500,
+    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
 for i,v in game.Workspace.SpawnedCars:GetChildren() do
-                        v:SetAttribute("BaseEngineRPM", Value)
-                        print("BaseEngineRPM value set to: "..Value)
+                    v:SetAttribute("BaseEngineRPM", Value)
+                    print("BaseEngineRPM value set to: "..Value)
 end
-        end,
-     })
-     local Slider = Tab:CreateSlider({
-        Name = "MaxEngineRPM (client sided)",
-        Range = {3000, 50000},
-        Increment = 1000,
-        Suffix = "Values",
-        CurrentValue = 5000,
-        Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-        Callback = function(Value)
-
-                for i,v in game.Workspace.SpawnedCars:GetChildren() do
-                        v:SetAttribute("MaxEngineRPM", Value)
-                        print("MaxEngineRPM value set to: "..Value)
-end
-        end,
-     })
-
+    end,
+ })
  local Slider = Tab:CreateSlider({
     Name = "MaxEngineRPM (client sided)",
     Range = {3000, 50000},
@@ -526,6 +510,22 @@ end
     Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
 
+            for i,v in game.Workspace.SpawnedCars:GetChildren() do
+                    v:SetAttribute("MaxEngineRPM", Value)
+                    print("MaxEngineRPM value set to: "..Value)
+end
+    end,
+ })
+
+local Slider = Tab:CreateSlider({
+Name = "MaxEngineRPM (client sided)",
+Range = {3000, 50000},
+Increment = 1000,
+Suffix = "Values",
+CurrentValue = 5000,
+Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+Callback = function(Value)
+
 local username = game.Players.LocalPlayer.Name -- replace with the username you're looking for
 local carType = tostring(_G.CarChoice) -- replace with the car type you're looking for
 
@@ -534,9 +534,9 @@ local foundModel = nil
 
 for _, model in pairs(spawnedCars:GetDescendants()) do
 if model:IsA("Model") and model.Name:match("^".. username .. "-".. carType) then
-        foundModel = model
-        break
-    end
+    foundModel = model
+    break
+end
 end
 
 if foundModel then
@@ -545,11 +545,11 @@ print("Found model: ".. foundModel.Name)
 else
 print("Model not found")
 end
-            if foundModel then
-                    foundModel:SetAttribute("MaxEngineRPM", Value)
-            end
-    end,
- })
+        if foundModel then
+                foundModel:SetAttribute("MaxEngineRPM", Value)
+        end
+end,
+})
 
 local Tab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 
