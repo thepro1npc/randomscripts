@@ -345,10 +345,3 @@ Section:AddButton({
 		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
     end    
 })
-
-Section:AddButton({
-    Name = "Raid Meetup (if neded)",
-    Callback = function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/vqmpjayZ/Bypass/8e92f1a31635629214ab4ac38217b97c2642d113/vadrifts"))()
-    end    
-})
