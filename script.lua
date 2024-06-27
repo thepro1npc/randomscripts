@@ -189,7 +189,7 @@ local Toggle = Tab:CreateToggle({
             spawn(function()
                 while isSpamming do
                     wait(1) -- Wait for 1 second
-                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / washieztroll . g g / washieztroll . g g / washieztroll . g g / washieztroll . g g / washieztroll . g g / washieztroll . g g / washieztroll . g g / washieztroll . g g / washieztroll . g g / washieztroll", "All")
+                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / robloxtrollers . g g / robloxtrollers . g g / wrobloxtrollers . g g / robloxtrollers . g g / robloxtrollers . g g / robloxtrollers . g g / robloxtrollers . g g / robloxtrollers . g g / robloxtrollers . g g / robloxtrollers", "All")
                 end
             end)
         end
