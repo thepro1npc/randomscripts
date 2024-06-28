@@ -109,7 +109,7 @@ local Button = Tab:CreateButton({
 
 local Slider = Tab:CreateSlider({
     Name = "Walkspeed",
-    Range = {1, 250},  -- Adjust the range as needed
+    Range = {16, 250},  -- Adjust the range as needed
     Increment = 1,
     Suffix = "Speed",
     Flag = "WalkSpeedSlider",  -- Ensure each slider has a unique flag for configuration purposes
@@ -125,7 +125,7 @@ local Slider = Tab:CreateSlider({
 
 local Slider = Tab:CreateSlider({
     Name = "Jump Power",
-    Range = {1, 250},  -- Adjust the range as needed
+    Range = {50, 250},  -- Adjust the range as needed
     Increment = 1,
     Suffix = "Power",
     Flag = "JumpPowerSlider",  -- Ensure each slider has a unique flag for configuration purposes
