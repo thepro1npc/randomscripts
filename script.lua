@@ -4,7 +4,7 @@ local Window = Rayfield:CreateWindow({
     LoadingTitle = "My Custom Script",
     LoadingSubtitle = "Made By npc",
     ConfigurationSaving = {
-       Enabled = true,
+       Enabled = false,
        FolderName = nil, -- Create a custom folder for your hub/game
        FileName = "Big Hub"
     },
@@ -40,12 +40,12 @@ local mrRankNames = {
 local toggleEnabled = false  -- Initial state of toggle
 
 local function sendNotification(title, message)
-    game:GetService("StarterGui"):SetCore("SendNotification", {
+    Rayfield:Notify({
         Title = title,
-        Text = message,
-        Duration = 10,
-        Button1 = "OK"
-    })
+        Content = message,
+        Duration = 8,
+        Image = 4483362458,
+     })
 end
 
 local function countPlayersByRank(rankNames)
@@ -74,7 +74,7 @@ local function checkAndNotifyHR(player)
         for _, rankName in ipairs(hrRankNames) do
             if rankName == rank then
                 if toggleEnabled then
-                    sendNotification("HR Join", player.Name .. " (" .. rank .. ") has joined the game.")
+                    sendNotification("HR ALERT", player.Name .. " (" .. rank .. ") has joined the game.")
                 end
                 break
             end
@@ -106,6 +106,41 @@ local Button = Tab:CreateButton({
     end,
  })
 
+backpack = game:GetService("Players").LocalPlayer.Backpack
+
+local Button = Tab:CreateButton({
+     Name = "Btools",
+     Callback = function()
+hammer = Instance.new("HopperBin")
+hammer.Name = "Hammer"
+hammer.BinType = 4
+hammer.Parent = backpack
+ 
+cloneTool = Instance.new("HopperBin")
+cloneTool.Name = "Clone"
+cloneTool.BinType = 3
+cloneTool.Parent = backpack
+ 
+grabTool = Instance.new("HopperBin")
+grabTool.Name = "Grab"
+grabTool.BinType = 2
+grabTool.Parent = backpack
+     end    
+})
+
+local Toggle = Tab:CreateToggle({
+	Name = "Spam Discord Invite",
+	CurrentValue = false,
+    Flag = "SpamToggle",
+	Callback = function(Value)
+		isSpamming = Value
+		while isSpamming do
+			game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / robloxtrollers", "All")
+			wait(1)
+		end
+		print("Spam toggle:", Value)
+	end    
+})
 
 local Slider = Tab:CreateSlider({
     Name = "Walkspeed",
@@ -163,6 +198,13 @@ local Toggle = Tab:CreateToggle({
         end
     end
 })
+
+local function flingAll()
+    for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
+        task.wait(0.2)
+    end
+end
 
  local Button = Tab:CreateButton({
     Name = "Fling Users in Cars",
@@ -233,30 +275,6 @@ local Button = Tab:CreateButton({
         end
         print("MR scan completed")
     end
-})
-
-local Section = Tab:CreateSection("Other")
-
-backpack = game:GetService("Players").LocalPlayer.Backpack
-
-local Button = Tab:CreateButton({
-    Name = "Btools",
-    Callback = function()
-hammer = Instance.new("HopperBin")
-hammer.Name = "Hammer"
-hammer.BinType = 4
-hammer.Parent = backpack
-
-cloneTool = Instance.new("HopperBin")
-cloneTool.Name = "Clone"
-cloneTool.BinType = 3
-cloneTool.Parent = backpack
-
-grabTool = Instance.new("HopperBin")
-grabTool.Name = "Grab"
-grabTool.BinType = 2
-grabTool.Parent = backpack
-    end    
 })
 
 local Button = Tab:CreateButton({
@@ -405,21 +423,11 @@ local Button = Tab:CreateButton({
 local Section = Tab:CreateSection("Vehicle Modifications (tesla drunk driving moment)")
 
 local Section = Tab:CreateSection("Credit to mye_real on discord")
-local Dropdown = Tab:CreateDropdown({
-    Name = "Car Choice (only SUV for now)",
-    Options = {"SUV"},
-    CurrentOption = {"SUV"},
-    MultipleOptions = false,
-    Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Option)
-_G.CarChoice = Option
-    end,
- })
  local Slider = Tab:CreateSlider({
     Name = "MaxSpeed",
     Range = {0, 250},
     Increment = 1,
-    Suffix = "Speeds",
+    Suffix = "Speed",
     CurrentValue = 60,
     Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
@@ -434,7 +442,7 @@ end
     Name = "ReverseSpeed",
     Range = {0, 250},
     Increment = 1,
-    Suffix = "Speeds",
+    Suffix = "Speed",
     CurrentValue = 60,
     Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
