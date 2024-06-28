@@ -10,7 +10,7 @@ local Window = Rayfield:CreateWindow({
     },
     Discord = {
        Enabled = false,
-       Invite = "robloxtrollers", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+       Invite = "", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
        RememberJoins = false -- Set this to false to make them join the discord every time they load it up
     },
     KeySystem = false, -- Set this to true to use our key system
@@ -83,6 +83,10 @@ sendNotification("NOTIFICATION", "Thanks for using my script :)")
 
 -- Listen for new players joining
 game.Players.PlayerAdded:Connect(checkAndNotifyHR)
+
+local Tab = Window:CreateTab("Main Page", 4483362458) -- Title, Image
+
+local Section = Tab:CreateSection("Main Page")
 
 -- Example toggle implementation (replace with your actual toggle logic)
 local Toggle = Tab:CreateToggle({
