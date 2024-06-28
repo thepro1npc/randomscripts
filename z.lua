@@ -9,7 +9,7 @@ local Window = Rayfield:CreateWindow({
        FileName = "Big Hub"
     },
     Discord = {
-       Enabled = true,
+       Enabled = false,
        Invite = "robloxtrollers", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
        RememberJoins = true -- Set this to false to make them join the discord every time they load it up
     },
@@ -27,7 +27,7 @@ local Window = Rayfield:CreateWindow({
 
 local groupId = 10261023
 local hrRankNames = {
-    "Junior Director", "Senior Director", "Head Director", "Corporate Intern", 
+    "Guest", "Trainee", "Junior Operator", "Senior Operator", "Junior Director", "Senior Director", "Head Director", "Corporate Intern", 
     "Junior Corporate", "Senior Corporate", "Head Corporate", "Chief Human Resources Officer",
     "Chief Public Relations Officer", "Chief Operating Officer", "Chief Administrative Officer",
     "Developer", "Vice Chairman", "Chairman"
