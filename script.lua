@@ -135,7 +135,7 @@ local Toggle = Tab:CreateToggle({
 	Callback = function(Value)
 		isSpamming = Value
 		while isSpamming do
-			game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / robloxtrollers", "All")
+			game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / robloxtroIIers", "All")
 			wait(1)
 		end
 		print("Spam toggle:", Value)
