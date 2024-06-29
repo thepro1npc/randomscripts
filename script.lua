@@ -10,18 +10,18 @@ local Window = Rayfield:CreateWindow({
     },
     Discord = {
        Enabled = false,
-       Invite = "", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
-       RememberJoins = false -- Set this to false to make them join the discord every time they load it up
+       Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+       RememberJoins = true -- Set this to false to make them join the discord every time they load it up
     },
     KeySystem = false, -- Set this to true to use our key system
     KeySettings = {
-       Title = "MADE BY npc",
+       Title = "TEST TITLE",
        Subtitle = "Key System",
-       Note = "Get the key here! https://link-target.net/1195296/script-key",
+       Note = "No method of obtaining the key is provided",
        FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
        SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
        GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-       Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+       Key = {"test"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
     }
 })
 
@@ -36,8 +36,6 @@ local hrRankNames = {
 local mrRankNames = {
     "Shift Leader", "Supervisor", "Assistant Manager", "General Manager"
 }
-
-local toggleEnabled = false  -- Initial state of toggle
 
 local function sendNotification(title, message)
     Rayfield:Notify({
@@ -73,9 +71,7 @@ local function checkAndNotifyHR(player)
     if success then
         for _, rankName in ipairs(hrRankNames) do
             if rankName == rank then
-                if toggleEnabled then
-                    sendNotification("HR ALERT", player.Name .. " (" .. rank .. ") has joined the game.")
-                end
+                sendNotification("HR Join", player.Name .. " (" .. rank .. ") has joined the game.")
                 break
             end
         end
@@ -83,16 +79,30 @@ local function checkAndNotifyHR(player)
 end
 
 -- Notify that the script is working
-sendNotification("NOTIFICATION", "Thanks for using my script :)")
+sendNotification("NOTIFICATION", "Scanner is WORKING")
 
 -- Listen for new players joining
 game.Players.PlayerAdded:Connect(checkAndNotifyHR)
 
-local Tab = Window:CreateTab("Main Page", 4483362458) -- Title, Image
+local function flingAll()
+    for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
+        task.wait(0.2)
+    end
+end
 
-local Section = Tab:CreateSection("Main Page")
+ local Tab = Window:CreateTab("Main Page", 4483362458) -- Title, Image
 
-local Button = Tab:CreateButton({
+ local Section = Tab:CreateSection("Main Page")
+
+ local Button = Tab:CreateButton({
+    Name = "Fling Users in Cars",
+    Callback = function()
+        flingAll()
+    end,
+ })
+
+ local Button = Tab:CreateButton({
     Name = "Fling GUI",
     Callback = function ()
 		loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'), true))()
@@ -103,113 +113,6 @@ local Button = Tab:CreateButton({
     Name = "Infinite Yield",
     Callback = function ()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-    end,
- })
-
-backpack = game:GetService("Players").LocalPlayer.Backpack
-
-local Button = Tab:CreateButton({
-     Name = "Btools",
-     Callback = function()
-hammer = Instance.new("HopperBin")
-hammer.Name = "Hammer"
-hammer.BinType = 4
-hammer.Parent = backpack
- 
-cloneTool = Instance.new("HopperBin")
-cloneTool.Name = "Clone"
-cloneTool.BinType = 3
-cloneTool.Parent = backpack
- 
-grabTool = Instance.new("HopperBin")
-grabTool.Name = "Grab"
-grabTool.BinType = 2
-grabTool.Parent = backpack
-     end    
-})
-
-local Toggle = Tab:CreateToggle({
-	Name = "Spam Discord Invite",
-	CurrentValue = false,
-    Flag = "SpamToggle",
-	Callback = function(Value)
-		isSpamming = Value
-		while isSpamming do
-			game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / rоblоxtrоllеrѕ", "All")
-			wait(1)
-		end
-		print("Spam toggle:", Value)
-	end    
-})
-
-local Slider = Tab:CreateSlider({
-    Name = "Walkspeed",
-    Range = {16, 250},  -- Adjust the range as needed
-    Increment = 1,
-    Suffix = "Speed",
-    Flag = "WalkSpeedSlider",  -- Ensure each slider has a unique flag for configuration purposes
-    CurrentValue = 16,  -- Set an initial value if needed
-    Callback = function(Value)
-        local player = game.Players.LocalPlayer
-        local character = player.Character
-        if character then
-            character.Humanoid.WalkSpeed = Value
-        end
-    end,
-})
-
-local Slider = Tab:CreateSlider({
-    Name = "Jump Power",
-    Range = {50, 250},  -- Adjust the range as needed
-    Increment = 1,
-    Suffix = "Power",
-    Flag = "JumpPowerSlider",  -- Ensure each slider has a unique flag for configuration purposes
-    CurrentValue = 50,  -- Set an initial value if needed
-    Callback = function(Value)
-        local player = game.Players.LocalPlayer
-        local character = player.Character
-        if character then
-            character.Humanoid.JumpPower = Value
-        end
-    end,
-})
-
-local Section = Tab:CreateSection("Misc")
-
-local Paragraph = Tab:CreateParagraph({Title = "DISCORD", Content = "discord.gg/robloxtrollers"})
-
-local Paragraph = Tab:CreateParagraph({Title = "CREDIT", Content = "Credit to @patriotic_american on Discord!"})
-
- local Tab = Window:CreateTab("Washiez", 4483362458) -- Title, Image
-
- local Section = Tab:CreateSection("Washiez Main Section")
-
--- Example toggle implementation (replace with your actual toggle logic)
-local Toggle = Tab:CreateToggle({
-    Name = "Toggle HR Notifier",
-    CurrentValue = false,
-    Flag = "Toggle HR",
-    Callback = function(Value)
-        toggleEnabled = Value
-        if toggleEnabled then
-            sendNotification("HR Notifier Toggle", "You will be notified whenever an HR joins the game.")
-        else
-            sendNotification("HR Notifier Toggle", "You will NOT be notified whenever an HR joins the game.")
-        end
-    end
-})
-
-local function flingAll()
-    for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
-        task.wait(0.2)
-    end
-end
-
- local Button = Tab:CreateButton({
-    Name = "Fling Users in Cars",
-    Callback = function()
-        flingAll()
     end,
  })
 
@@ -249,32 +152,73 @@ end
 })
 
 local Button = Tab:CreateButton({
-    Name = "Scan for MR's!",
-    Callback = function()
-        local mrCount = 0
-        local mrUsernames = {}  -- Table to store MR usernames
-        for _, player in ipairs(game.Players:GetPlayers()) do
-            local success, rank = pcall(function()
-                return player:GetRoleInGroup(groupId)
-            end)
-            if success then
-                for _, rankName in ipairs(mrRankNames) do
-                    if rankName == rank then
-                        mrCount = mrCount + 1
-                        table.insert(mrUsernames, player.Name)  -- Add MR username to the table
-                        break
-                    end
+	Name = "Scan for MR's!",
+	Callback = function()
+		local mrCount = countPlayersByRank(mrRankNames)
+		local mrUsernames = {}  -- Table to store MR usernames
+		for _, player in ipairs(game.Players:GetPlayers()) do
+			local success, rank = pcall(function()
+				return player:GetRoleInGroup(groupId)
+			end)
+			if success then
+				for _, rankName in ipairs(mrRankNames) do
+					if rankName == rank then
+						table.insert(mrUsernames, player.Name)  -- Add MR username to the table
+						break
+					end
+				end
+			end
+		end
+		local mrUsernamesStr = table.concat(mrUsernames, ", ")  -- Concatenate usernames into a string
+		if mrCount > 3 then
+			sendNotification("MR SCAN", "There are " .. mrCount .. " MR's in-game:\n" .. mrUsernamesStr)
+		else
+			sendNotification("MR SCAN", "There are " .. mrCount .. " MR's in-game:\n" .. mrUsernamesStr)
+		end
+  		print("MR scan completed")
+  	end    
+})
+
+local isSpamming = false
+local Toggle = Tab:CreateToggle({
+    Name = "Spam Discord Invite",
+    CurrentValue = false,
+    Flag = "SpamToggle",
+    Callback = function(Value)
+        isSpamming = Value
+        if isSpamming then
+            spawn(function()
+                while isSpamming do
+                    wait(1) -- Wait for 1 second
+                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / rоblоxtrоllеrѕ", "All")
                 end
-            end
+            end)
         end
-        local mrUsernamesStr = table.concat(mrUsernames, ", ")  -- Concatenate usernames into a string
-        if mrCount > 0 then
-            sendNotification("MR SCAN", "There are " .. mrCount .. " MR's in-game:\n" .. mrUsernamesStr)
-        else
-            sendNotification("MR SCAN", "There are 0 MR's in-game.")
-        end
-        print("MR scan completed")
     end
+})
+
+local Section = Tab:CreateSection("Other")
+
+backpack = game:GetService("Players").LocalPlayer.Backpack
+
+local Button = Tab:CreateButton({
+    Name = "Btools",
+    Callback = function()
+hammer = Instance.new("HopperBin")
+hammer.Name = "Hammer"
+hammer.BinType = 4
+hammer.Parent = backpack
+
+cloneTool = Instance.new("HopperBin")
+cloneTool.Name = "Clone"
+cloneTool.BinType = 3
+cloneTool.Parent = backpack
+
+grabTool = Instance.new("HopperBin")
+grabTool.Name = "Grab"
+grabTool.BinType = 2
+grabTool.Parent = backpack
+    end    
 })
 
 local Button = Tab:CreateButton({
@@ -295,6 +239,14 @@ local Button = Tab:CreateButton({
         end
     end    
 })
+
+local Section = Tab:CreateSection("Misc")
+
+local Paragraph = Tab:CreateParagraph({Title = "DISCORD", Content = "discord.gg/washieztroll"})
+
+local Paragraph = Tab:CreateParagraph({Title = "CREDIT", Content = "Credit to @patriotic_american on Discord!"})
+
+local Tab = Window:CreateTab("Teleport", 4483362458) -- Title, Image
 
 local Section = Tab:CreateSection("Teleporters")
 
@@ -370,6 +322,8 @@ local Button = Tab:CreateButton({
     end    
 })
 
+local Tab = Window:CreateTab("Training", 4483362458) -- Title, Image
+
 local Section = Tab:CreateSection("Training Teleporters")
 
 local Button = Tab:CreateButton({
@@ -420,14 +374,26 @@ local Button = Tab:CreateButton({
     end    
 })
 
+local Tab = Window:CreateTab("Vehicle", 4483362458) -- Title, Image
+
 local Section = Tab:CreateSection("Vehicle Modifications (tesla drunk driving moment)")
 
 local Section = Tab:CreateSection("Credit to mye_real on discord")
+local Dropdown = Tab:CreateDropdown({
+    Name = "Car Choice (only SUV for now)",
+    Options = {"SUV"},
+    CurrentOption = {"SUV"},
+    MultipleOptions = false,
+    Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Option)
+_G.CarChoice = Option
+    end,
+ })
  local Slider = Tab:CreateSlider({
     Name = "MaxSpeed",
     Range = {0, 250},
     Increment = 1,
-    Suffix = "Speed",
+    Suffix = "Speeds",
     CurrentValue = 60,
     Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
@@ -442,7 +408,7 @@ end
     Name = "ReverseSpeed",
     Range = {0, 250},
     Increment = 1,
-    Suffix = "Speed",
+    Suffix = "Speeds",
     CurrentValue = 60,
     Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
@@ -513,6 +479,59 @@ end
 end
     end,
  })
+ local Slider = Tab:CreateSlider({
+    Name = "WheelFriction (client sided)",
+    Range = {1, 100},
+    Increment = 1,
+    Suffix = "Values",
+    CurrentValue = 2,
+    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+
+            for i,v in game.Workspace.SpawnedCars:GetChildren() do
+                    v:SetAttribute("WheelFriction", Value)
+                    print("WheelFriction value set to: "..Value)
+end
+    end,
+ })
+ local Slider = Tab:CreateSlider({
+    Name = "BaseEngineRPM (client sided)",
+    Range = {1500, 10000},
+    Increment = 100,
+    Suffix = "Values",
+    CurrentValue = 1500,
+    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+for i,v in game.Workspace.SpawnedCars:GetChildren() do
+                    v:SetAttribute("BaseEngineRPM", Value)
+                    print("BaseEngineRPM value set to: "..Value)
+end
+    end,
+ })
+ local Slider = Tab:CreateSlider({
+    Name = "MaxEngineRPM (client sided)",
+    Range = {3000, 50000},
+    Increment = 1000,
+    Suffix = "Values",
+    CurrentValue = 5000,
+    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+
+            for i,v in game.Workspace.SpawnedCars:GetChildren() do
+                    v:SetAttribute("MaxEngineRPM", Value)
+                    print("MaxEngineRPM value set to: "..Value)
+end
+    end,
+ })
+
+local Slider = Tab:CreateSlider({
+Name = "MaxEngineRPM (client sided)",
+Range = {3000, 50000},
+Increment = 1000,
+Suffix = "Values",
+CurrentValue = 5000,
+Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+Callback = function(Value)
 
 local username = game.Players.LocalPlayer.Name -- replace with the username you're looking for
 local carType = tostring(_G.CarChoice) -- replace with the car type you're looking for
@@ -533,3 +552,8 @@ print("Found model: ".. foundModel.Name)
 else
 print("Model not found")
 end
+        if foundModel then
+                foundModel:SetAttribute("MaxEngineRPM", Value)
+        end
+end,
+})
