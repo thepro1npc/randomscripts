@@ -42,7 +42,7 @@ local function sendNotification(title, message)
         Title = title,
         Content = message,
         Duration = 8,
-        Image = 7634887655,
+        Image = 4483362458,
      })
 end
 
