@@ -4,44 +4,46 @@ local Window = Rayfield:CreateWindow({
     LoadingTitle = "My Custom Script",
     LoadingSubtitle = "Made By npc",
     ConfigurationSaving = {
-       Enabled = true,
+       Enabled = false,
        FolderName = nil, -- Create a custom folder for your hub/game
        FileName = "Big Hub"
     },
     Discord = {
        Enabled = false,
-       Invite = "", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
-       RememberJoins = false -- Set this to false to make them join the discord every time they load it up
+       Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+       RememberJoins = true -- Set this to false to make them join the discord every time they load it up
     },
     KeySystem = false, -- Set this to true to use our key system
     KeySettings = {
-       Title = "MADE BY npc",
+       Title = "TEST TITLE",
        Subtitle = "Key System",
-       Note = "Get the key here! https://link-target.net/1195296/script-key",
+       Note = "No method of obtaining the key is provided",
        FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
        SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
        GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-       Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+       Key = {"test"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
     }
 })
 
 local groupId = 10261023
 local hrRankNames = {
-    "Guest", "Trainee", "Junior Director", "Senior Director", "Head Director", "Corporate Intern", 
+    "Junior Director", "Senior Director", "Head Director", "Corporate Intern", 
     "Junior Corporate", "Senior Corporate", "Head Corporate", "Chief Human Resources Officer",
     "Chief Public Relations Officer", "Chief Operating Officer", "Chief Administrative Officer",
     "Developer", "Vice Chairman", "Chairman"
 }
 
-local toggleEnabled = false  -- Initial state of toggle
+local mrRankNames = {
+    "Shift Leader", "Supervisor", "Assistant Manager", "General Manager"
+}
 
 local function sendNotification(title, message)
-    game:GetService("StarterGui"):SetCore("SendNotification", {
+    Rayfield:Notify({
         Title = title,
-        Text = message,
-        Duration = 10,
-        Button1 = "OK"
-    })
+        Content = message,
+        Duration = 8,
+        Image = 4483362458,
+     })
 end
 
 local function countPlayersByRank(rankNames)
@@ -69,9 +71,7 @@ local function checkAndNotifyHR(player)
     if success then
         for _, rankName in ipairs(hrRankNames) do
             if rankName == rank then
-                if toggleEnabled then
-                    sendNotification("HR Join", player.Name .. " (" .. rank .. ") has joined the game.")
-                end
+                sendNotification("HR Join", player.Name .. " (" .. rank .. ") has joined the game.")
                 break
             end
         end
@@ -79,29 +79,25 @@ local function checkAndNotifyHR(player)
 end
 
 -- Notify that the script is working
-sendNotification("NOTIFICATION", "Thanks for using my script :)")
+sendNotification("NOTIFICATION", "Scanner is WORKING")
 
 -- Listen for new players joining
 game.Players.PlayerAdded:Connect(checkAndNotifyHR)
 
-local Tab = Window:CreateTab("Main Page", 4483362458) -- Title, Image
-
-local Section = Tab:CreateSection("Main Page")
-
--- Example toggle implementation (replace with your actual toggle logic)
-local Toggle = Tab:CreateToggle({
-    Name = "Toggle HR Notifier",
-    CurrentValue = false,
-    Flag = "Toggle HR",
-    Callback = function(Value)
-        toggleEnabled = Value
-        if toggleEnabled then
-            sendNotification("HR Notifier Toggle", "You will be notified whenever an HR joins the game.")
-        else
-            sendNotification("HR Notifier Toggle", "You will NOT be notified whenever an HR joins the game.")
-        end
+local function flingAll()
+    for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
+        task.wait(0.2)
     end
-})
+end
+
+ local Tab = Window:CreateTab("Main Page", 4483362458) -- Title, Image
+
+ local Section = Tab:CreateSection("Main Page")
+
+ local Label = Tab:CreateLabel("HR's In-Game: {hrCount}")
+
+ local Label = Tab:CreateLabel("MR's In-Game: {mrCount}")
 
  local Button = Tab:CreateButton({
     Name = "Fling Users in Cars",
@@ -198,7 +194,7 @@ local Toggle = Tab:CreateToggle({
             spawn(function()
                 while isSpamming do
                     wait(1) -- Wait for 1 second
-                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / robloxtrollers . g g / robloxtrollers . g g / robloxtrollers . g g / robloxtrollers . g g / robloxtrollers", "All")
+                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(". g g / rоblоxtrоllеrѕ", "All")
                 end
             end)
         end
@@ -247,6 +243,12 @@ local Button = Tab:CreateButton({
         end
     end    
 })
+
+local Section = Tab:CreateSection("Misc")
+
+local Paragraph = Tab:CreateParagraph({Title = "DISCORD", Content = "discord.gg/washieztroll"})
+
+local Paragraph = Tab:CreateParagraph({Title = "CREDIT", Content = "Credit to @patriotic_american on Discord!"})
 
 local Tab = Window:CreateTab("Teleport", 4483362458) -- Title, Image
 
@@ -558,20 +560,4 @@ end
                 foundModel:SetAttribute("MaxEngineRPM", Value)
         end
 end,
-})
-
-local Tab = Window:CreateTab("Misc", 4483362458) -- Title, Image
-
-local Section = Tab:CreateSection("Misc")
-
-local Paragraph = Tab:CreateParagraph({Title = "DISCORD", Content = "discord.gg/washieztroll"})
-
-local Paragraph = Tab:CreateParagraph({Title = "CREDIT", Content = "Credit to @patriotic_american on Discord!"})
-
-local Button = Tab:CreateButton({
-    Name = "Raid Meetup (if neded)",
-    Callback = function()
-		local targetPosition = Vector3.new(799, 3, -590)
-		game.Players.LocalPlayer.Character:MoveTo(targetPosition)
-    end    
 })
