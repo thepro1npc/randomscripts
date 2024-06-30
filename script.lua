@@ -79,7 +79,7 @@ local function checkAndNotifyHR(player)
 end
 
 -- Notify that the script is working
-sendNotification("NOTIFICATION", "Scanner is WORKING. You will be notified whenever an HR joins, and KICKED if a Corporate+ joins.")
+sendNotification("NOTIFICATION", "Scanner is WORKING. You will be notified whenever an HR joins.")
 
 -- Listen for new players joining
 game.Players.PlayerAdded:Connect(checkAndNotifyHR)
@@ -94,46 +94,6 @@ end
  local Tab = Window:CreateTab("Main Page", 4483362458) -- Title, Image
 
  local Section = Tab:CreateSection("Main Page")
-
--- Reason for kicking
-local kickReason = "A player with Corporate Intern or above rank has joined. You're welcome :)"
-
-local ranks = {
-    "Corporate Intern", "Junior Corporate", "Senior Corporate", "Head Corporate", "Chief Human Resources Officer",
-    "Chief Public Relations Officer", "Chief Operating Officer", "Chief Administrative Officer",
-    "Developer", "Vice Chairman", "Chairman"
-}
-
-local function isCorporateOrAbove(rank)
-    for i, r in ipairs(ranks) do
-        if r == rank or i > index then
-            return true
-        end
-    end
-    return false
-end
-
-game.Players.PlayerAdded:Connect(function(player)
-    local success, rank = pcall(function()
-        return player:GetRoleInGroup(groupId)
-    end)
-    
-    if success and isCorporateOrAbove(rank) and player ~= game.Players.LocalPlayer then
-        game.Players.LocalPlayer:Kick(kickReason)
-    end
-end)
-
-print("Auto Kick On Join script loaded successfully.")
-
-
- -- Function to fling all users in cars (from your existing script)
- local function flingAll()
-     for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
-         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
-         task.wait(0.2)
-     end
- end
- 
  -- Create buttons and other UI elements (from your existing script)
  
  -- Example button from your existing script
