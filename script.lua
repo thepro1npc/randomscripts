@@ -1,8 +1,8 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Window = Rayfield:CreateWindow({
-    Name = "MADE BY npc",
-    LoadingTitle = "My Custom Script",
-    LoadingSubtitle = "Made By npc",
+    Name = "Washiez Troller",
+    LoadingTitle = "The Ultimate Washiez Troller",
+    LoadingSubtitle = "By npc",
     ConfigurationSaving = {
        Enabled = false,
        FolderName = nil, -- Create a custom folder for your hub/game
@@ -15,15 +15,15 @@ local Window = Rayfield:CreateWindow({
     },
     KeySystem = false, -- Set this to true to use our key system
     KeySettings = {
-       Title = "TEST TITLE",
+       Title = "Untitled",
        Subtitle = "Key System",
        Note = "No method of obtaining the key is provided",
        FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
        SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
        GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-       Key = {"test"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+       Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
     }
-})
+ })
 
 local groupId = 10261023
 local hrRankNames = {
@@ -79,7 +79,7 @@ local function checkAndNotifyHR(player)
 end
 
 -- Notify that the script is working
-sendNotification("NOTIFICATION", "Scanner is WORKING. You will be notified whenever an HR joins.")
+sendNotification("NOTIFICATION", "Scanner is WORKING. You will be notified whenever an HR joins, and KICKED if a Corporate+ joins.")
 
 -- Listen for new players joining
 game.Players.PlayerAdded:Connect(checkAndNotifyHR)
