@@ -1,8 +1,8 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/thepro1npc/randomscripts/main/rayfield%20loader'))()
 local Window = Rayfield:CreateWindow({
-    Name = "Washiez Troller",
-    LoadingTitle = "The Ultimate Washiez Troller",
-    LoadingSubtitle = "By npc",
+    Name = "MADE BY npc",
+    LoadingTitle = "My Custom Script",
+    LoadingSubtitle = "Made By npc",
     ConfigurationSaving = {
        Enabled = false,
        FolderName = nil, -- Create a custom folder for your hub/game
@@ -15,15 +15,15 @@ local Window = Rayfield:CreateWindow({
     },
     KeySystem = false, -- Set this to true to use our key system
     KeySettings = {
-       Title = "Untitled",
+       Title = "TEST TITLE",
        Subtitle = "Key System",
        Note = "No method of obtaining the key is provided",
        FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
        SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
        GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-       Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+       Key = {"test"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
     }
- })
+})
 
 local groupId = 10261023
 local hrRankNames = {
@@ -94,6 +94,46 @@ end
  local Tab = Window:CreateTab("Main Page", 4483362458) -- Title, Image
 
  local Section = Tab:CreateSection("Main Page")
+
+-- Reason for kicking
+local kickReason = "A player with Corporate Intern or above rank has joined. You're welcome :)"
+
+local ranks = {
+    "Corporate Intern", "Junior Corporate", "Senior Corporate", "Head Corporate", "Chief Human Resources Officer",
+    "Chief Public Relations Officer", "Chief Operating Officer", "Chief Administrative Officer",
+    "Developer", "Vice Chairman", "Chairman"
+}
+
+local function isCorporateOrAbove(rank)
+    for i, r in ipairs(ranks) do
+        if r == rank or i > index then
+            return true
+        end
+    end
+    return false
+end
+
+game.Players.PlayerAdded:Connect(function(player)
+    local success, rank = pcall(function()
+        return player:GetRoleInGroup(groupId)
+    end)
+    
+    if success and isCorporateOrAbove(rank) and player ~= game.Players.LocalPlayer then
+        game.Players.LocalPlayer:Kick(kickReason)
+    end
+end)
+
+print("Auto Kick On Join script loaded successfully.")
+
+
+ -- Function to fling all users in cars (from your existing script)
+ local function flingAll()
+     for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
+         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
+         task.wait(0.2)
+     end
+ end
+ 
  -- Create buttons and other UI elements (from your existing script)
  
  -- Example button from your existing script
