@@ -1,7 +1,7 @@
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/thepro1npc/randomscripts/main/rayfield%20loader'))()
 local Window = Rayfield:CreateWindow({
-    Name = "MADE BY npc",
-    LoadingTitle = "My Custom Script",
+    Name = "Washiez Troller",
+    LoadingTitle = "The Ultimate Washiez Troller",
     LoadingSubtitle = "Made By npc",
     ConfigurationSaving = {
        Enabled = false,
