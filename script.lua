@@ -208,7 +208,7 @@ local Toggle = Tab:CreateToggle({
     end
 })
 
-----------------------------
+local Active = true
 
 local Active = false
 
@@ -245,7 +245,7 @@ game:GetService('RunService').RenderStepped:Connect(function()
 end)
 
 local Button = Tab:CreateButton({
-    Name = "Toggle Username Scrambler (credit: ser.ver_ on discord)",
+    Name = "Toggle Username Scrambler (ser.ver_ on discord)",
     Callback = function()
         if Active == true then
           Active = false
@@ -447,6 +447,130 @@ local Dropdown = Tab:CreateDropdown({
 _G.CarChoice = Option
     end,
  })
+
+ local Button = Tab:CreateButton({
+    Name = "Car Noclip (credit: gaminger2713 on discord)",
+    Callback = function()
+        if setfpscap then
+            setfpscap(90000)
+        end
+        
+        local Folder = Instance.new("Folder")
+        Folder.Name = "parts"
+        
+        local parts = {
+            {name = "ii", size = Vector3.new(802.4365234375, 0.0010000000474974513, 1245.367919921875), position = CFrame.new(-36.87646484375, 0.21846917271614075, 70.48501586914062)},
+            {name = "ii", size = Vector3.new(1591.9024658203125, 0.0010000000474974513, 466.6781005859375), position = CFrame.new(-433.20184326171875, 0.21846917271614075, -773.6083374023438)},
+            {name = "ii", size = Vector3.new(1304.427490234375, 0.0010000000474974513, 424.321533203125), position = CFrame.new(1013.5869750976562, 0.21846917271614075, -752.4300537109375)},
+            {name = "ii", size = Vector3.new(998.1998901367188, 0.0010000000474974513, 1218.008056640625), position = CFrame.new(860.4730224609375, 0.21846917271614075, 56.805084228515625)},
+            {name = "ii", size = Vector3.new(12.600000381469727, 0.3999999761581421, 40.29999923706055), position = CFrame.new(370.91815185546875, 0.6360464096069336, 105.79989624023438) * CFrame.Angles(0, math.rad(180), 0)},
+            {name = "ii", size = Vector3.new(12.600000381469727, 0.800000011920929, 139.75), position = CFrame.new(371.1180419921875, 0.4360463619232178, 195.82485961914062)},
+            {name = "ii", size = Vector3.new(12.600000381469727, 0.3999999761581421, 40.29999923706055), position = CFrame.new(332.3181457519531, 0.6360464096069336, 105.79989624023438) * CFrame.Angles(0, math.rad(180), 0)},
+            {name = "ii", size = Vector3.new(12.600000381469727, 0.800000011920929, 139.75), position = CFrame.new(332.5180358886719, 0.4360463619232178, 195.82485961914062)},
+            {name = "ii", size = Vector3.new(1522.946, 0.001, 1245.368), position = CFrame.new(-397.131, 0.218, 70.485)},
+        }
+        
+        for _, partData in ipairs(parts) do
+            local part = Instance.new("Part")
+            part.Name = partData.name
+            part.Anchored = true
+            part.Transparency = 1
+            part.Size = partData.size
+            part.CFrame = partData.position
+            part.Parent = Folder
+        end
+        
+        Folder.Parent = workspace
+        
+        
+        local plrcar = nil
+        
+        workspace.SpawnedCars.ChildAdded:Connect(function(v)
+            if v:IsA("Model") and v.Name:match(game.Players.LocalPlayer.Name) then
+                plrcar = v
+            end
+        end)
+        
+        for _, child in pairs(workspace.SpawnedCars:GetChildren()) do
+            if child.Name:match(game.Players.LocalPlayer.Name) then
+                plrcar = child
+            end
+        end
+        
+        local function check(object)
+            if not plrcar then return false end
+            return object:IsDescendantOf(plrcar)
+        end
+        
+        local partsToCheck = {}
+        
+        local function disableCollision(part)
+            part.CanCollide = false
+            table.insert(partsToCheck, part)
+        end
+        
+        for _, v in pairs(workspace:GetDescendants()) do
+            if v:IsA("BasePart") and v.Name ~= "ii" and not check(v) then
+                disableCollision(v)
+            end
+        end
+        
+        workspace.DescendantAdded:Connect(function(s)
+            if s:IsA("BasePart") and not check(s) then
+                disableCollision(s)
+            end
+        end)
+        
+        
+        local function disableCharacterCollision(char)
+            for _, e in pairs(char:GetDescendants()) do
+                if e:IsA("BasePart") then
+                    disableCollision(e)
+                end
+            end
+            char.DescendantAdded:Connect(function(e)
+                if e:IsA("BasePart") then
+                    disableCollision(e)
+                end
+            end)
+        end
+        
+        
+        for _, v in pairs(game.Players:GetPlayers()) do
+            local char = v.Character or v.CharacterAdded:Wait()
+            disableCharacterCollision(char)
+            v.CharacterAdded:Connect(disableCharacterCollision)
+        end
+        
+        
+        game.Players.PlayerAdded:Connect(function(plr)
+            plr.CharacterAdded:Connect(disableCharacterCollision)
+        end)
+        
+        
+        workspace.DescendantRemoving:Connect(function(o)
+            if partsToCheck[o] then
+                partsToCheck[o] = nil
+                end
+        end)
+        task.spawn(function()
+            while true do
+                for _, part in ipairs(partsToCheck) do
+                    if part and part:IsDescendantOf(workspace) then
+                        if part.CanCollide then
+                            part.CanCollide = false
+                        end
+                    end
+                end
+                task.wait(1)
+                
+            end
+        end)
+        
+        
+    end,
+ })
+ 
  local Slider = Tab:CreateSlider({
     Name = "MaxSpeed",
     Range = {0, 250},
