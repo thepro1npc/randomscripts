@@ -311,9 +311,11 @@ local Button = Tab:CreateButton({
 
 local Section = Tab:CreateSection("Misc")
 
-local Paragraph = Tab:CreateParagraph({Title = "DISCORD", Content = "discord.gg/washieztroll"})
+local Paragraph = Tab:CreateParagraph({Title = "DISCORD", Content = "discord.gg/robloxtrollers"})
 
 local Paragraph = Tab:CreateParagraph({Title = "CREDIT", Content = "Credit to @patriotic_american on Discord!"})
+
+local Label = Tab:CreateLabel("version-4.3.0")
 
 local Tab = Window:CreateTab("Teleport", 4483362458) -- Title, Image
 
