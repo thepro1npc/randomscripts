@@ -95,7 +95,6 @@ end
 
  local Section = Tab:CreateSection("Main Page")
 
- -- Function to fling all users in cars (from your existing script)
  local function flingAll()
      for _, v in pairs(workspace.SpawnedCars:GetChildren()) do
          game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.PrimaryPart.CFrame
@@ -103,9 +102,7 @@ end
      end
  end
  
- -- Create buttons and other UI elements (from your existing script)
- 
- -- Example button from your existing script
+
  local Button = Tab:CreateButton({
      Name = "Fling Users in Cars",
      Callback = function()
@@ -124,6 +121,20 @@ end
     Name = "Infinite Yield",
     Callback = function ()
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+    end,
+ })
+
+ local Button = Tab:CreateButton({
+    Name = "Rejoin Game",
+    Callback = function()
+        local Players = game:GetService("Players")
+        local player = Players.LocalPlayer
+        
+        if player then
+            player:Kick("Rejoining game...") -- Kicks the player from the game
+            wait(1) -- Wait briefly before rejoining
+            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, player) -- Teleports the player back to the same place and job
+        end
     end,
  })
 
