@@ -42,7 +42,7 @@ local function sendNotification(title, message)
         Title = title,
         Content = message,
         Duration = 8,
-        Image = 4483362458,
+        Image = 10709775560,
      })
 end
 
@@ -315,9 +315,9 @@ local Paragraph = Tab:CreateParagraph({Title = "DISCORD", Content = "discord.gg/
 
 local Paragraph = Tab:CreateParagraph({Title = "CREDIT", Content = "Credit to @patriotic_american on Discord!"})
 
-local Label = Tab:CreateLabel("version-4.3.0")
+local Label = Tab:CreateLabel("version-4.3.1")
 
-local Tab = Window:CreateTab("Teleport", 4483362458) -- Title, Image
+local Tab = Window:CreateTab("Teleport", 10723434557) -- Title, Image
 
 local Section = Tab:CreateSection("Teleporters")
 
@@ -393,7 +393,7 @@ local Button = Tab:CreateButton({
     end    
 })
 
-local Tab = Window:CreateTab("Training", 4483362458) -- Title, Image
+local Tab = Window:CreateTab("Training", 10734907168) -- Title, Image
 
 local Section = Tab:CreateSection("Training Teleporters")
 
@@ -445,7 +445,7 @@ local Button = Tab:CreateButton({
     end    
 })
 
-local Tab = Window:CreateTab("Vehicle", 4483362458) -- Title, Image
+local Tab = Window:CreateTab("Vehicle", 10709789810) -- Title, Image
 
 local Section = Tab:CreateSection("Vehicle Modifications (tesla drunk driving moment)")
 
