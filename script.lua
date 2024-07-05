@@ -147,7 +147,7 @@ local positions = {
     Vector3.new(1169, -11, -5072),  -- pos 19
     Vector3.new(1324, -9, -5071),    -- pos 20
     Vector3.new(1498, -9, -5077),
-    Vector3.new(1512, -5 -5076)
+    Vector3.new(1512, -5, -5076)
 }
 
 local function moveToPositions()
@@ -155,8 +155,6 @@ local function moveToPositions()
         wait(0.2)
         game.Players.LocalPlayer.Character:MoveTo(position)
         wait(0.2)
-        local targetPosition2 = Vector3.new(1793, -9, -5052)
-        game.Players.LocalPlayer.Character:MoveTo(targetPosition2)
     end
 end
 
