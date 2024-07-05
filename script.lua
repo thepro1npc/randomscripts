@@ -102,6 +102,68 @@ end
      end
  end
  
+local Button = Tab:CreateButton({
+    Name = "Auto Complete Obby",
+    Callback = function()
+        local natureObbyPortal = workspace:FindFirstChild("Portals")
+                                  and workspace.Portals:FindFirstChild("Portals")
+                                  and workspace.Portals.Portals:FindFirstChild("NatureObbyPortal")
+        
+        if natureObbyPortal then
+            for _, descendant in ipairs(natureObbyPortal:GetDescendants()) do
+                if descendant:IsA("BasePart") then
+                    descendant.CanCollide = false
+                end
+            end
+            print("Collisions turned off for all parts inside NatureObbyPortal.")
+        else
+            warn("NatureObbyPortal not found in the specified location.")
+            return 
+        end
+        
+        local targetPosition1 = Vector3.new(342, 4, -130)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition1)
+        wait(0.3)
+        local targetPosition2 = Vector3.new(342, 4, -139)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition2)
+        wait(1)
+        local targetPosition2 = Vector3.new(1793, -9, -5052)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition2)
+        wait(1)
+local positions = {
+    Vector3.new(1793, -9, -5064),   -- pos 2
+    Vector3.new(1794, -9, -5257),   -- pos 6
+    Vector3.new(1665, -9, -5327),   -- pos 7
+    Vector3.new(1622, -9, -5184),   -- pos 8
+    Vector3.new(1480, 34, -5191),   -- pos 9
+    Vector3.new(1348, -3, -5505),   -- pos 11
+    Vector3.new(1341, -3, -5166),   -- pos 12
+    Vector3.new(1229, -10, -5430),  -- pos 13
+    Vector3.new(1229, -10, -5758),  -- pos 14
+    Vector3.new(1162, -10, -5835),  -- pos 15
+    Vector3.new(1156, -10, -5694),  -- pos 16
+    Vector3.new(1156, -11, -5538),  -- pos 17
+    Vector3.new(1174, -11, -5248),  -- pos 18
+    Vector3.new(1169, -11, -5072),  -- pos 19
+    Vector3.new(1324, -9, -5071),    -- pos 20
+    Vector3.new(1498, -9, -5077),
+    Vector3.new(1512, -5 -5076)
+}
+
+local function moveToPositions()
+    for i, position in ipairs(positions) do
+        wait(0.2)
+        game.Players.LocalPlayer.Character:MoveTo(position)
+        wait(0.2)
+        local targetPosition2 = Vector3.new(1793, -9, -5052)
+        game.Players.LocalPlayer.Character:MoveTo(targetPosition2)
+    end
+end
+
+moveToPositions()
+    end    
+})
+
 
  local Button = Tab:CreateButton({
      Name = "Fling Users in Cars",
@@ -315,7 +377,7 @@ local Paragraph = Tab:CreateParagraph({Title = "DISCORD", Content = "discord.gg/
 
 local Paragraph = Tab:CreateParagraph({Title = "CREDIT", Content = "Credit to @patriotic_american on Discord!"})
 
-local Label = Tab:CreateLabel("version-4.3.1")
+local Label = Tab:CreateLabel("version-4.4.1")
 
 local Tab = Window:CreateTab("Teleport", 10723434557) -- Title, Image
 
