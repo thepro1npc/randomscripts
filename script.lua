@@ -1,4 +1,4 @@
-local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/thepro1npc/randomscripts/main/rayfield%20loader'))()
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Window = Rayfield:CreateWindow({
     Name = "Washiez Troller",
     LoadingTitle = "The Ultimate Washiez Troller",
